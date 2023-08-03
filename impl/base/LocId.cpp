@@ -1,10 +1,10 @@
 
-#include "../../include/base/LocId.h"
+#include "base/LocId.h"
 
 #include "clang/AST/AST.h"
 #include "clang/AST/RecursiveASTVisitor.h"
 #include <fmt/core.h>
-#include "../../include/base/Util.h"
+#include "base/Util.h"
 
 using namespace clang;
 
