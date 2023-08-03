@@ -17,6 +17,12 @@
 using namespace llvm;
 using namespace clang;
 
+bool Util::isDeclInMainFile(SourceManager&SM, Decl* D){
+  //判断当前文件是否主文件
+  bool inMainFile=SM.isWrittenInMainFile(D->getBeginLoc());
+  return inMainFile;
+}
+
 bool Util::LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
   bool contains=(_set.count(locId) <= 0);
   return contains;

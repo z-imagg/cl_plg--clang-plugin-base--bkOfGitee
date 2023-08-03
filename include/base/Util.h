@@ -31,6 +31,9 @@ using namespace clang;
 
 class Util {
 public:
+    //判断给定声明是否在主文件中
+    static bool isDeclInMainFile(SourceManager&SM, Decl* D);
+
     static bool LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
     static void getMainFileIDMainFilePath(SourceManager& SM,FileID& mainFileId,std::string& mainFilePath);
     static int childrenCntOfCompoundStmt(CompoundStmt* stmt);
