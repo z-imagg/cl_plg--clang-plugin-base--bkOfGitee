@@ -113,7 +113,7 @@ public:
 /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ext/type_traits.h
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h
 
-/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/lib/clang/15.0.0/include/uintrintrin.h
+/app/pubx/build-llvm15/lib/clang/15.0.0/include/uintrintrin.h
  * @param fn
  * @return
  */
