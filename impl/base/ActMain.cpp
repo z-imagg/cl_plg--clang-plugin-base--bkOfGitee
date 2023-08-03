@@ -29,26 +29,11 @@ int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory
   // 获取编译配置
   clang::tooling::CompilationDatabase &Compilations = eOptParser->getCompilations();
 
-//  std::shared_ptr<DiagnosticOptions> diagnosticOptions = std::make_shared<DiagnosticOptions>();
-//  std::shared_ptr<DiagnosticOptions> DiagOpts = std::make_shared<DiagnosticOptions>();
-//  DiagnosticsEngine Diags(new DiagnosticIDs(), &*DiagOpts, new IgnoringDiagConsumer(), true);
-//  std::shared_ptr<DiagnosticsEngine> Diags = std::make_shared<DiagnosticsEngine>( DiagOpts.get() );
-//  DiagnosticOptions DiagOpts;
-//  DiagnosticsEngine Diags(new DiagnosticIDs(), &DiagOpts, new IgnoringDiagConsumer(), true);
-
-  DiagnosticOptions* DiagOpts=new DiagnosticOptions();
-  DiagnosticsEngine *Diags=new DiagnosticsEngine(new DiagnosticIDs(), DiagOpts);
-
 
   // 创建 CompilerInstance 对象
-//  std::shared_ptr<CompilerInstance> CI_PTR = std::make_shared<CompilerInstance>( );
-
-  CompilerInstance *CI_PTR = new CompilerInstance( );
-
-  clang::CompilerInstance & CI= *(CI_PTR );
+  clang::CompilerInstance CI;
   // 创建源管理器
-//  CI.createDiagnostics(DiagOpts.get());
-  CI.setDiagnostics(Diags);
+  CI.createDiagnostics();
   CI.createFileManager();
   CI.createSourceManager(CI.getFileManager());
 /* 确保在创建编译器实例（`clang::CompilerInstance`）后，立即创建源管理器（`clang::SourceManager`）并将其设置到编译器实例中
@@ -91,7 +76,7 @@ int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory
 /llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/lib/clang/15.0.0/include/stddef.h
    */
 
-  DiagnosticsEngine &de = CI.getDiagnostics();
+
   // 运行 ClangTool
   int Result =   Tool.run(frontendActionFactory.get());
 
