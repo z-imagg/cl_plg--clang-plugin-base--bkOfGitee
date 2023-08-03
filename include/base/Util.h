@@ -31,6 +31,8 @@ using namespace clang;
 
 class Util {
 public:
+    //DiagnosticsEngine错误个数
+    static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
     //在给定声明列表中，找到第一个在MainFile的声明
     static Decl* firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec);
     //判断给定声明是否在主文件中

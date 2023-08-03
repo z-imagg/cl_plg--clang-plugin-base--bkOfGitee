@@ -17,6 +17,18 @@
 using namespace llvm;
 using namespace clang;
 
+
+//DiagnosticsEngine错误个数
+std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
+//      DiagnosticsEngine &Diags = CI.getDiagnostics();
+  int error=Diags.getNumErrors();
+  bool hasErrorOccurred = Diags.hasErrorOccurred();
+  bool hasFatalErrorOccurred = Diags.hasFatalErrorOccurred();
+  bool hasUncompilableErrorOccurred = Diags.hasUncompilableErrorOccurred();
+  bool hasUnrecoverableErrorOccurred = Diags.hasUnrecoverableErrorOccurred();
+  std::string msg(fmt::format("DiagnosticsEngine错误个数: error:{},hasErrorOccurred:{},hasFatalErrorOccurred:{},hasUncompilableErrorOccurred:{},hasUnrecoverableErrorOccurred:{}",error,hasErrorOccurred,hasFatalErrorOccurred,hasUncompilableErrorOccurred,hasUnrecoverableErrorOccurred));
+  return msg;
+}
 Decl* Util::firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec){
   for(int k=0; k < declVec.size(); k++){
     Decl* decl=declVec[k];
