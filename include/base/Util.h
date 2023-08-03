@@ -31,6 +31,8 @@ using namespace clang;
 
 class Util {
 public:
+    //在给定声明列表中，找到第一个在MainFile的声明
+    static Decl* firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec);
     //判断给定声明是否在主文件中
     static bool isDeclInMainFile(SourceManager&SM, Decl* D);
 
@@ -136,6 +138,7 @@ public:
      * @return
      */
     static int varCntInVarDecl(DeclStmt* stmt);
+    static void insertCommentBeforeLoc(StringRef commentText,SourceLocation Loc,   const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult);
     static void insertIncludeToFileStart(StringRef includeStmtText,FileID fileId, SourceManager &SM, const std::shared_ptr<Rewriter> rewriter_ptr,bool& insertResult);
     static void insertIncludeToFileStartByLoc(StringRef includeStmtText,SourceLocation Loc, SourceManager &SM, const std::shared_ptr<Rewriter> rewriter_ptr);
     static bool getSourceFilePathAtLoc(SourceLocation Loc, const SourceManager &SM,StringRef& fn);

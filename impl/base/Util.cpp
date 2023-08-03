@@ -17,6 +17,18 @@
 using namespace llvm;
 using namespace clang;
 
+Decl* Util::firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec){
+  for(int k=0; k < declVec.size(); k++){
+    Decl* decl=declVec[k];
+    SourceLocation Loc=decl->getBeginLoc();
+    bool inMainFile=SM.isWrittenInMainFile(Loc);
+    if(inMainFile){
+      return decl;
+    }
+  }
+  return NULL;
+}
+
 bool Util::isDeclInMainFile(SourceManager&SM, Decl* D){
   //判断当前文件是否主文件
   bool inMainFile=SM.isWrittenInMainFile(D->getBeginLoc());
@@ -377,6 +389,12 @@ void Util::insertIncludeToFileStartByLoc(StringRef includeStmtText,SourceLocatio
 
   bool insertResult;
   insertIncludeToFileStart(includeStmtText,fileId,SM,mRewriter_ptr,insertResult);
+}
+
+
+void Util::insertCommentBeforeLoc(StringRef commentText,SourceLocation Loc , const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult)   {
+  insertResult=mRewriter_ptr->InsertTextBefore(Loc, commentText);
+  return  ;
 }
 
 void Util::insertIncludeToFileStart(StringRef includeStmtText,FileID fileId, SourceManager &SM, const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult)   {
