@@ -386,10 +386,12 @@ void Util::insertIncludeToFileStart(StringRef includeStmtText,FileID fileId, Sou
 //  FileID fileId = SM.getFileID(Loc);
   SourceLocation startLoc = SM.getLocForStartOfFile(fileId);
 
-  const RewriteBuffer *RewriteBuf = mRewriter_ptr->getRewriteBufferFor(fileId);
-  if (!RewriteBuf){
-    return;
-  }
+//我估计是 在第一次 Rewriter.InsertText 后 Rewriter.getRewriteBufferFor 才会有值, 即第一次插入时候 才建立的缓存
+//   所以以下判断，不合适
+//  const RewriteBuffer *RewriteBuf = mRewriter_ptr->getRewriteBufferFor(fileId);
+//  if (!RewriteBuf){
+//    return;
+//  }
 
 
   insertResult=mRewriter_ptr->InsertText(startLoc, includeStmtText, true, true);
