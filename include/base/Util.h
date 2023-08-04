@@ -33,6 +33,8 @@ using namespace clang;
 
 class Util {
 public:
+    //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
+    static SourceLocation nextTokenLocation(SourceLocation thisTokenLocation, const SourceManager& SM,const LangOptions& LO);
     static void wrapByComment(const char* in,   std::string& out);
     /**是否 独立且容器 语句
      * 所谓 容器 即 能容纳别的语句 的语句
