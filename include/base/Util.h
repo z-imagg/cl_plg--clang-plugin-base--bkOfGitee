@@ -2,8 +2,8 @@
 // Created by zz on 2023/7/22.
 //
 
-#ifndef CLANG_TUTOR_UTIL_H
-#define CLANG_TUTOR_UTIL_H
+#ifndef Util_H
+#define Util_H
 
 
 #include <string>
@@ -203,4 +203,4 @@ public:
 };
 
 
-#endif //CLANG_TUTOR_UTIL_H
+#endif //Util_H
