@@ -19,6 +19,9 @@ using namespace clang;
 
 
 
+void Util::wrapByComment(const char* in,   std::string& out){
+  out = fmt::format("/*{}*/", in);
+}
 //是否 独立且容器 语句
 bool Util::isAloneContainerStmt(const Stmt *stmt){
   bool IsCompoundStmt=isa<CompoundStmt>(*stmt);

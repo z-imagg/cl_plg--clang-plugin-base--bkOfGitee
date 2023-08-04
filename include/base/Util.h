@@ -33,6 +33,7 @@ using namespace clang;
 
 class Util {
 public:
+    static void wrapByComment(const char* in,   std::string& out);
     /**是否 独立且容器 语句
      * 所谓 容器 即 能容纳别的语句 的语句
      * 所以 独立 即 能独立存在 而不会报语法错误 的语句
