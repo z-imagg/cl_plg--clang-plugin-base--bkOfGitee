@@ -18,6 +18,17 @@ using namespace llvm;
 using namespace clang;
 
 
+
+//是否 独立且容器 语句
+bool Util::isAloneContainerStmt(const Stmt *stmt){
+  bool IsCompoundStmt=isa<CompoundStmt>(*stmt);
+  bool IsIfStmt=isa<IfStmt>(*stmt);
+  bool IsForStmt=isa<ForStmt>(*stmt);
+  bool IsWhileStmt=isa<WhileStmt>(*stmt);
+  bool IsDoStmt=isa<DoStmt>(*stmt);
+  bool isContainerStmt = IsCompoundStmt || IsIfStmt || IsForStmt || IsWhileStmt || IsDoStmt;
+  return isContainerStmt;
+}
 //获取语句末尾分号位置
 SourceLocation Util::getStmtEndSemicolonLocation(const Stmt *S, const SourceManager &SM,bool& endIsSemicolon) {
   const LangOptions &LO = LangOptions();
