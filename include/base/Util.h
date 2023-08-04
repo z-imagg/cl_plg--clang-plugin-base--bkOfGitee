@@ -33,27 +33,8 @@ using namespace clang;
 
 class Util {
 public:
-    SourceLocation getStmtEndSemicolonLocation(const Stmt* S, const SourceManager& SM) {
-      // 获取Stmt的结束位置
-      const SourceLocation EndLoc = S->getEndLoc();
-
-      // 获取下一个token的结束位置
-      SourceLocation NextTokenEndLoc = Lexer::getLocForEndOfToken(EndLoc, 0, SM, LangOptions());
-
-      // 查找下一个分号
-      Token Tok;
-      Lexer::getRawToken(NextTokenEndLoc, Tok, SM, LangOptions());
-
-      while (Tok.isNot(tok::semi) && Tok.isNot(tok::eof)) {
-        NextTokenEndLoc = Lexer::getLocForEndOfToken(Tok.getLocation(), 0, SM, LangOptions());
-        Lexer::getRawToken(NextTokenEndLoc, Tok, SM, LangOptions());
-      }
-
-      // 获取分号的结束位置
-      SourceLocation SemicolonEndLoc = Lexer::getLocForEndOfToken(Tok.getLocation(), 0, SM, LangOptions());
-
-      return SemicolonEndLoc;
-    }
+    //获取语句末尾分号位置
+    static SourceLocation getStmtEndSemicolonLocation(const Stmt *S, const SourceManager &SM,bool& endIsSemicolon)  ;
     
     //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
