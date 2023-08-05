@@ -18,6 +18,66 @@ using namespace llvm;
 using namespace clang;
 
 
+
+//从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
+SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const SourceManager& SM,const LangOptions& LO){
+//    switch语句中冒号下一个Token位置的奇怪结果:
+//    beginLoc = Lexer::getLocForEndOfToken(SwitchCase->getColonLoc(), /*Offset*/0, SM, LO);//offset:0 所取得位置是冒号右边 是期望位置
+//    beginLoc = Lexer::getLocForEndOfToken(SwitchCase->getColonLoc(), /*Offset*/1, SM, LO);//offset:1 所取得位置是冒号左边 非期望位置
+//按道理说 offset:1 冒号右边  ，offset:0 冒号左边 才对， 但结果是反过来的。不知道如何解释，据说是因为 冒号这个小Token 所在位置 同时 被一个更大的Token占据，导致offset:1 是 相对于 此大Token的，但这个解释有点勉强。
+  //以下2步骤，确定能移动到下一个token位置？
+  Token thisToken;
+  //步骤1. 取给定位置的Token, 忽略空格、tab等空白符
+  Lexer::getRawToken(thisTokenLoc, thisToken, SM, LO,/*IgnoreWhiteSpace:*/true);
+  //步骤2. 相对 该Token的结束位置 右移1个Token 所获得的位置 即 下一个token位置
+  const SourceLocation nextTokenLoc = Lexer::getLocForEndOfToken(thisToken.getEndLoc(), /*向右移1个Token*/1, SM, LO);
+  return nextTokenLoc;
+}
+void Util::wrapByComment(const char* in,   std::string& out){
+  out = fmt::format("/*{}*/", in);
+}
+//是否 独立且容器 语句
+bool Util::isAloneContainerStmt(const Stmt *stmt){
+  bool IsCompoundStmt=isa<CompoundStmt>(*stmt);
+  bool IsIfStmt=isa<IfStmt>(*stmt);
+  bool IsForStmt=isa<ForStmt>(*stmt);
+  bool IsWhileStmt=isa<WhileStmt>(*stmt);
+  bool IsDoStmt=isa<DoStmt>(*stmt);
+  bool isContainerStmt = IsCompoundStmt || IsIfStmt || IsForStmt || IsWhileStmt || IsDoStmt;
+  return isContainerStmt;
+}
+//获取语句末尾分号位置
+SourceLocation Util::getStmtEndSemicolonLocation(const Stmt *S, const SourceManager &SM,bool& endIsSemicolon) {
+  const LangOptions &LO = LangOptions();
+  Token JTok;
+
+  // 获取Stmt的结束位置
+  SourceLocation JLoc = S->getEndLoc();
+  if(JLoc.isInvalid()){
+    //如果语句末尾位置 就不合法，则标记没找到分号，再直接返回。
+    endIsSemicolon= false;
+    return JLoc;
+  }
+
+  do{
+
+    Lexer::getRawToken(JLoc, JTok, SM, LO,/*IgnoreWhiteSpace:*/true);
+    //忽略空白字符，IgnoreWhiteSpace：true，很关键，否则可能某个位置导致循环后还是该位置，从而死循环。
+    JLoc = Lexer::getLocForEndOfToken(JTok.getEndLoc(), /*Offset*/1, SM, LO);
+    //偏移量给1,Offset：1,很关键，如果不向前移动 可能循环一次还是在该位置，造成死循环。
+    //取第J次循环的Token的结尾位置，JTok.getEndLoc()，很关键，否则可能下次循环还在该token上，导致死循环。
+  }while (JTok.isNot(tok::semi)
+          && JTok.isNot(tok::eof)
+          && JTok.getLocation().isValid()
+          );
+
+
+  // 获取分号的结束位置
+
+  endIsSemicolon=JTok.is(tok::semi);
+  return JTok.getLocation();
+}
+
 //DiagnosticsEngine错误个数
 std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
 //      DiagnosticsEngine &Diags = CI.getDiagnostics();

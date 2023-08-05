@@ -2,8 +2,8 @@
 // Created by zz on 2023/7/22.
 //
 
-#ifndef CLANG_TUTOR_UTIL_H
-#define CLANG_TUTOR_UTIL_H
+#ifndef Util_H
+#define Util_H
 
 
 #include <string>
@@ -33,27 +33,22 @@ using namespace clang;
 
 class Util {
 public:
-    SourceLocation getStmtEndSemicolonLocation(const Stmt* S, const SourceManager& SM) {
-      // 获取Stmt的结束位置
-      const SourceLocation EndLoc = S->getEndLoc();
-
-      // 获取下一个token的结束位置
-      SourceLocation NextTokenEndLoc = Lexer::getLocForEndOfToken(EndLoc, 0, SM, LangOptions());
-
-      // 查找下一个分号
-      Token Tok;
-      Lexer::getRawToken(NextTokenEndLoc, Tok, SM, LangOptions());
-
-      while (Tok.isNot(tok::semi) && Tok.isNot(tok::eof)) {
-        NextTokenEndLoc = Lexer::getLocForEndOfToken(Tok.getLocation(), 0, SM, LangOptions());
-        Lexer::getRawToken(NextTokenEndLoc, Tok, SM, LangOptions());
-      }
-
-      // 获取分号的结束位置
-      SourceLocation SemicolonEndLoc = Lexer::getLocForEndOfToken(Tok.getLocation(), 0, SM, LangOptions());
-
-      return SemicolonEndLoc;
-    }
+    //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
+    static SourceLocation nextTokenLocation(SourceLocation thisTokenLocation, const SourceManager& SM,const LangOptions& LO);
+    static void wrapByComment(const char* in,   std::string& out);
+    /**是否 独立且容器 语句
+     * 所谓 容器 即 能容纳别的语句 的语句
+     * 所以 独立 即 能独立存在 而不会报语法错误 的语句
+     *
+     *注意 else 是容器语句，但else不能独立存在，因此 else 不是 独立且容器 语句
+     *   else必须依附if才能存在
+     * 块、if、for、while、do-while  是  独立且容器 语句
+     * @param stmt
+     * @return
+     */
+    static bool isAloneContainerStmt(const Stmt *stmt)  ;
+    //获取语句末尾分号位置
+    static SourceLocation getStmtEndSemicolonLocation(const Stmt *S, const SourceManager &SM,bool& endIsSemicolon)  ;
     
     //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
@@ -203,4 +198,4 @@ public:
 };
 
 
-#endif //CLANG_TUTOR_UTIL_H
+#endif //Util_H
