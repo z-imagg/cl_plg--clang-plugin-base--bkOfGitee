@@ -18,9 +18,16 @@ using namespace llvm;
 using namespace clang;
 
 
+bool Util::LocIsInMacro(SourceLocation Loc, SourceManager& SM){
+  bool isInMacro=
+          SM.isAtStartOfImmediateMacroExpansion(Loc) || SM.isAtEndOfImmediateMacroExpansion(Loc) ||
+          SM.isInSystemMacro(Loc) || SM.isMacroBodyExpansion(Loc) || SM.isMacroArgExpansion(Loc)
+  ;
+  return isInMacro;
+}
 
 //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
-SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const SourceManager& SM,const LangOptions& LO){
+SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const SourceManager& SM,const LangOptions& LO,int offset){
 //    switch语句中冒号下一个Token位置的奇怪结果:
 //    beginLoc = Lexer::getLocForEndOfToken(SwitchCase->getColonLoc(), /*Offset*/0, SM, LO);//offset:0 所取得位置是冒号右边 是期望位置
 //    beginLoc = Lexer::getLocForEndOfToken(SwitchCase->getColonLoc(), /*Offset*/1, SM, LO);//offset:1 所取得位置是冒号左边 非期望位置
@@ -30,7 +37,7 @@ SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const Source
   //步骤1. 取给定位置的Token, 忽略空格、tab等空白符
   Lexer::getRawToken(thisTokenLoc, thisToken, SM, LO,/*IgnoreWhiteSpace:*/true);
   //步骤2. 相对 该Token的结束位置 右移1个Token 所获得的位置 即 下一个token位置
-  const SourceLocation nextTokenLoc = Lexer::getLocForEndOfToken(thisToken.getEndLoc(), /*向右移1个Token*/1, SM, LO);
+  const SourceLocation nextTokenLoc = Lexer::getLocForEndOfToken(thisToken.getEndLoc(), /*向右移1个Token*/offset, SM, LO);
   return nextTokenLoc;
 }
 void Util::wrapByComment(const char* in,   std::string& out){
@@ -393,6 +400,7 @@ void Util::extractLineAndColumn(const clang::SourceManager& SM, const clang::Sou
   clang::PresumedLoc presumedLoc = SM.getPresumedLoc(sourceLocation);
   line = presumedLoc.getLine();
   column = presumedLoc.getColumn();
+  return;
 }
 
 bool Util::parentIsCompound(ASTContext* astContext, const Stmt* currentStmt) {
