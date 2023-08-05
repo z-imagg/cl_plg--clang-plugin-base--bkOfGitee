@@ -76,6 +76,11 @@ int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory
 /llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/lib/clang/15.0.0/include/stddef.h
    */
 
+//ActMain添加头文件路径例子
+//  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/build-llvm15/utils/TableGen"},tooling::ArgumentInsertPosition::END));
+//  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/llvm-project/llvm/utils/TableGen"},tooling::ArgumentInsertPosition::END));
+//  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/build-llvm15/include"},tooling::ArgumentInsertPosition::END));
+//  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/llvm-project/llvm/include"},tooling::ArgumentInsertPosition::END));
 
   // 运行 ClangTool
   int Result =   Tool.run(frontendActionFactory.get());
