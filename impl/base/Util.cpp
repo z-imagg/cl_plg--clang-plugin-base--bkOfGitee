@@ -584,12 +584,13 @@ void Util::printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std
   size_t parentSSize=parentS.size();
   if(parentSSize>0){
     ASTNodeKind parent0NodeKind=parentS[0].getNodeKind();
-    const char * parent0NodeKindCStr=parent0NodeKind.asStringRef().str().c_str();
+    const std::string &parent0NodeKindStr = parent0NodeKind.asStringRef().str();
 //    char msg[128];
     //sprintf中不要给 clang::StringRef类型，否则结果是怪异的。
 //    sprintf(msg, ",parent0NodeKind:%s", parent0NodeKindCStr);
-    title.append(",parent0NodeKind:");
-    title.append(parent0NodeKindCStr);
+//    title.append(",parent0NodeKind:");
+//    title.append(parent0NodeKindCStr);//这里用 parent0NodeKind.asStringRef().str().c_str() 结果也可能是怪异的
+    title=fmt::format("{},parent0NodeKind:{}",title,parent0NodeKindStr);
   }
   //endregion
 
