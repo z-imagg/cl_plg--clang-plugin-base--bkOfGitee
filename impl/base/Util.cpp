@@ -107,6 +107,9 @@ bool Util::isDeclInMainFile(SourceManager&SM, Decl* D){
   return inMainFile;
 }
 
+bool Util::LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
+  return !Util::LocIdSetNotContains(_set,locId);
+}
 bool Util::LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
   bool contains=(_set.count(locId) <= 0);
   return contains;
