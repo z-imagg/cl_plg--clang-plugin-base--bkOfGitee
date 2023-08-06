@@ -119,7 +119,6 @@ public:
     static bool isTickSrcFile(StringRef fn) ;
     static void copySrcFile(std::string srcFilePath,std::string destRootDir="/tmp/");
     static bool LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc);
-    static bool isMacroLocation(SourceLocation loc, SourceManager &SM);
     static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
     static std::string rewriteBufferToString(const RewriteBuffer &buffer);
     static void

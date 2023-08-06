@@ -228,12 +228,6 @@ bool Util::LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc){
   bool LocInMainFile=(mainFileId==fileId);
   return LocInMainFile;
 }
-bool Util::isMacroLocation(SourceLocation loc, SourceManager &SM) {
-  bool isMacroArgExpansion = SM.isMacroArgExpansion(loc);
-  bool isMacroBodyExpansion= SM.isMacroBodyExpansion(loc);
-  bool isMacroLoc=isMacroArgExpansion || isMacroBodyExpansion;
-  return isMacroLoc;
-}
 bool Util::envVarEq(std::string varName, std::string varValueExpect){
   if(varName.empty()){
     return false;
@@ -531,7 +525,7 @@ std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceM
  */
 std::string Util::getSourceTextBySourceRange(SourceRange sourceRange, SourceManager & sourceManager, const LangOptions & langOptions){
   //ref:  https://stackoverflow.com/questions/40596195/pretty-print-statement-to-string-in-clang/40599057#40599057
-//  SourceRange sourceRange=S->getSourceRange();
+//  SourceRange caseKSrcRange=S->getSourceRange();
   CharSourceRange charSourceRange=CharSourceRange::getCharRange(sourceRange);
   llvm::StringRef strRefSourceText=Lexer::getSourceText(charSourceRange, sourceManager, langOptions);
 
@@ -581,7 +575,7 @@ std::tuple<std::string,std::string>  Util::get_FileAndRange_SourceText(const Sou
   //{开发用
   SourceManager &SM = CI.getSourceManager();
   LangOptions &langOpts = CI.getLangOpts();
-//      const SourceRange &sourceRange = Decl->getSourceRange();
+//      const SourceRange &caseKSrcRange = Decl->getSourceRange();
   std::string fileAndRange = sourceRange.printToString(SM);
   std::string sourceText = Util::getSourceTextBySourceRange(sourceRange, SM, langOpts);
   return std::tuple<std::string,std::string>(fileAndRange,sourceText);
@@ -676,7 +670,7 @@ void  Util::printSourceRange(int64_t nodeID,
         bool printSourceText){
   SourceManager & SM=CI.getSourceManager();
   FileID mainFileId = SM.getMainFileID();
-//  FileID fileId = SM.getFileID(sourceRange.getBegin());
+//  FileID fileId = SM.getFileID(caseKSrcRange.getBegin());
 
   const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
