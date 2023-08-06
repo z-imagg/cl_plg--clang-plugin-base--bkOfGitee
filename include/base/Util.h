@@ -33,6 +33,9 @@ using namespace clang;
 
 class Util {
 public:
+    //位置范围A 是否 包含 位置范围B ， 相等也算包含。
+    // 由于SourceRange::fullyContains的结果是错误的，因此用自制同名方法替代
+    static bool fullContains(SourceManager& SM, SourceRange A, SourceRange B);
     //给定位置是否在宏中
     static bool LocIsInMacro(SourceLocation Loc, SourceManager& SM);
     //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
@@ -111,7 +114,7 @@ public:
 /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ext/type_traits.h
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h
 
-/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/lib/clang/15.0.0/include/uintrintrin.h
+/app/llvm_release_home/clang+llvm-15.0.6-x86_64-linux-gnu-ubuntu-18.04/lib/clang/15.0.0/include/uintrintrin.h
  * @param fn
  * @return
  */

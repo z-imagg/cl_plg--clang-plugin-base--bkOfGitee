@@ -18,6 +18,33 @@ using namespace llvm;
 using namespace clang;
 
 
+bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
+
+
+
+  SourceLocation aB = A.getBegin();
+  int aBL,aBC;
+  Util::extractLineAndColumn(SM,aB,aBL,aBC);
+  SourceLocation aE = A.getEnd();
+  int aEL,aEC;
+  Util::extractLineAndColumn(SM,aE,aEL,aEC);
+
+  SourceLocation xB = X.getBegin();
+  int xBL,xBC;
+  Util::extractLineAndColumn(SM,xB,xBL,xBC);
+  SourceLocation xE = X.getEnd();
+  int xEL,xEC;
+  Util::extractLineAndColumn(SM,xE,xEL,xEC);
+
+  bool _fullContains=
+  (aBL < xBL || (aBL == xBL && aBC <= xBC) )    &&  //A开头位置行号 小于 x开头位置行号 , 行号相等时 列号同理
+  (aEL > xEL || (aEL == xEL && aEC >= xEC) )  //且    A末尾位置行号 大于 x末尾位置行号 , 行号相等时 列号同理
+  ;                                           //即 表示 A范围 包含了 B范围
+
+  //由此可见 范围A 和 范围X 等同时，此方法也返回true
+
+  return _fullContains;
+}
 bool Util::LocIsInMacro(SourceLocation Loc, SourceManager& SM){
   bool isInMacro=
           SM.isAtStartOfImmediateMacroExpansion(Loc) || SM.isAtEndOfImmediateMacroExpansion(Loc) ||
