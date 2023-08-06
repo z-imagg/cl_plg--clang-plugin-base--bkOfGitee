@@ -253,6 +253,7 @@ bool Util::LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc){
   FileID mainFileId = SM.getMainFileID();
   FileID fileId = SM.getFileID(Loc);
   bool LocInMainFile=(mainFileId==fileId);
+//  bool LocInMainFile=SM.isWrittenInMainFile(Loc); //TODO 问 此方法LocFileIDEqMainFileID 可以被 SM.isWrittenInMainFile 替代吗?
   return LocInMainFile;
 }
 bool Util::envVarEq(std::string varName, std::string varValueExpect){
