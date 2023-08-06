@@ -34,6 +34,7 @@ public:
 //            Decl::Kind declKind, Stmt::StmtClass stmtClass,
             std::string filePath,int line, int column);
 
+    bool containedByRange(SourceManager&SM, SourceRange range);
 
     // 重写哈希函数
     size_t operator()(const LocId& that) const ;

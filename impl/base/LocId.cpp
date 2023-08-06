@@ -36,6 +36,24 @@ LocId:: LocId(
     }
 
 
+    bool LocId::containedByRange(SourceManager&SM, SourceRange range){
+      SourceLocation B=range.getBegin();
+      SourceLocation E=range.getEnd();
+
+      int bL=-1,bC=-1;
+      Util::extractLineAndColumn(SM,B,bL,bC);
+      int eL=-1,eC=-1;
+      Util::extractLineAndColumn(SM,E,eL,eC);
+
+      bool in_range=
+          (bL<line || (bL==line && bC<column))
+          &&
+          (eL>line || (eL==line && eC>column))
+        ;
+
+      return in_range;
+    }
+
     // 重写哈希函数
     size_t LocId::operator()(const LocId& that) const {
       // 同一个文件的 在同一个链条（hash）
