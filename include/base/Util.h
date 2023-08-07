@@ -152,7 +152,7 @@ public:
     static bool hasAttrKind(Stmt *stmt, attr::Kind attrKind);
     static void extractLineAndColumn(const clang::SourceManager& SM, const clang::SourceLocation& sourceLocation, int& line, int& column);
     static bool parentIsCompound(ASTContext* astContext, const Stmt* currentStmt);
-    static bool parentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass);
+    static bool anyParentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass);
     static bool parentKindIsSame(ASTContext *Ctx, const Stmt* stmt, const ASTNodeKind& kind);
     /**
      * 在声明语句 中 声明的变量个数

@@ -427,12 +427,12 @@ void Util::extractLineAndColumn(const clang::SourceManager& SM, const clang::Sou
 
 bool Util::parentIsCompound(ASTContext* astContext, const Stmt* currentStmt) {
   bool parentKindIsCompound= Util::parentKindIsSame(astContext, currentStmt, ASTNodeKind::getFromNodeKind<CompoundStmt>());
-  bool parentClassIsCompound= Util::parentClassEqual(astContext, currentStmt, Stmt::CompoundStmtClass);
+  bool parentClassIsCompound= Util::anyParentClassEqual(astContext, currentStmt, Stmt::CompoundStmtClass);
   bool parentIsCompound=parentKindIsCompound||parentClassIsCompound;
   return parentIsCompound;
 }
-
-bool Util::parentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass) {
+//原名:parentClassEqual ，现名:anyParentClassEqual
+bool Util::anyParentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass) {
   auto parents = astContext->getParents(*stmt);
 
   for (const auto& parent : parents) {
