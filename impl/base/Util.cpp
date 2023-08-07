@@ -622,7 +622,7 @@ std::tuple<std::string,std::string>  Util::get_FileAndRange_SourceText(const Sou
   //}
 }
 
-void Util::printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, clang::Stmt *stmt,
+void Util::printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, const clang::Stmt *stmt,
                      bool printSourceText) {
   //region title后面接上parent0的kind
   DynTypedNodeList parentS=Ctx.getParents(*stmt);

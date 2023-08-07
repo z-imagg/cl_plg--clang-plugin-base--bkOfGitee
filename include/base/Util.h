@@ -179,7 +179,7 @@ public:
 
 
     static std::tuple<std::string,std::string>  get_FileAndRange_SourceText(const SourceRange &sourceRange,CompilerInstance& CI);
-    static void printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, clang::Stmt *expr,
+    static void printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, const  clang::Stmt *stmt,
                           bool printSourceText);
     static void printExpr(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, clang::Expr *expr,
                           bool printSourceText = false);
