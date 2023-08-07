@@ -33,9 +33,10 @@ using namespace clang;
 
 class Util {
 public:
-    //父亲节点们转换
+
+   //父亲节点们 转为 指定类型 的 节点列表
     template<typename ParentNodeTp>
-    static void collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,const ParentNodeTp*>> & parentVec);
+    static void collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,SourceRange,const ParentNodeTp*>> & parentVec);
 
     //位置范围A 是否 包含 位置范围B ， 相等也算包含。
     // 由于SourceRange::fullyContains的结果是错误的，因此用自制同名方法替代

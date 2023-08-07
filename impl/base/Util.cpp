@@ -18,17 +18,56 @@ using namespace llvm;
 using namespace clang;
 
 
-//父亲节点们转换
+
+//region 父亲节点们 转为 指定类型 的 节点列表
+/**
+ * 父亲节点们 转为 指定类型 的 节点列表，
+ *     指定类型 不合适， 即  若父亲i的类型  不是  指定类型，  则返回向量中i位置为NULL，
+ *            可以通过返回向量中i位置的ASTNodeKind确定给定何类型合适。
+ * @tparam ParentNodeTp 指定类型
+ * @param parents 输入的 父亲节点们
+ * @param parentVec 返回 元组<父亲i的ASTNodeKind,父亲i转为给定类型的结果> 向量
+ */
 template<typename ParentNodeTp>
-void Util::collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,const ParentNodeTp*>> & parentVec){
+void Util::collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,SourceRange,const ParentNodeTp*>> & parentVec){
 //      const DynTypedNodeList &parents = ctx.getParents(*stmt);
 
-  for (const auto& parent : parents) {
-    auto stmtParent = parent.get<ParentNodeTp>();
-    auto parentNodeKind=parent.getNodeKind();
-    parentVec.push_back(std::make_tuple(parentNodeKind,stmtParent));
+  for (const DynTypedNode& parentNodeI : parents) {
+    //注意  :  parentNodeI.get<T>():  如果parentNode不是类型T的，此get返回NULL
+    const ParentNodeTp *parentI = parentNodeI.get<ParentNodeTp>();
+    SourceRange parentISourceRange=parentNodeI.getSourceRange();
+
+    const ASTNodeKind &parentINodeKind = parentNodeI.getNodeKind();
+    parentVec.push_back(std::make_tuple(parentINodeKind, parentISourceRange,parentI));
   }
 }
+
+//函数Util::collectParentS 的使用例子.
+void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt *stmt) {
+  std::vector<std::tuple<ASTNodeKind,SourceRange,const Stmt*>>  parentVec;
+  const DynTypedNodeList & parents = ctx.getParents(*stmt);
+  Util::collectParentS<Stmt>(parents,parentVec);
+  //返回父亲节点们放在 向量parentVec 中
+  size_t parentSize=parentVec.size();
+  //共parentSize个父亲节点
+  if(parentSize>1){
+    for(int i =0; i < parentSize; i++){
+//      parentINodeKind表示第i个父亲节点的ASTNodeKind
+      ASTNodeKind parentINodeKind=std::get<0>(parentVec[i]);
+//      parentISourceRange表示第i个父亲节点的位置范围
+      SourceRange parentISourceRange=std::get<1>(parentVec[i]);
+//      parentI表示第i个父亲节点
+      const Stmt* parentI=std::get<2>(parentVec[i]);
+      if(parentI==NULL){
+        const std::string &parentISourceRangeText = parentISourceRange.printToString(SM);
+        std::string parentINodeKindStr=parentINodeKind.asStringRef().str();
+        std::string errMsg=fmt::format("第{}个父亲节点 ,位置范围 {},  并不是 Stmt类型，其ASTNodeKind是{}, 解决:把类型Stmt改为{}?\n",i,parentISourceRangeText,parentINodeKindStr,parentINodeKindStr);
+        std::cout<<errMsg;
+      }
+    }
+  }
+}
+//endregion
 
 bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
 
