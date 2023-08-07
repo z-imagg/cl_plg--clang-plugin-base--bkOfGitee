@@ -216,13 +216,13 @@ public:
       const char *topCategoryEnumFieldName, int topCategoryEnum,
       const char *category1FieldName=NULL, int category1Enum=EMPTY_ENUM_VAL,
       const char *category2FieldName=NULL,int category2Enum=EMPTY_ENUM_VAL,
-      bool printSourceText=false);
+      bool printSourceText=false,int printSourceTextLimit=512);
 
     static void  printSourceRangeSimple(
             CompilerInstance& CI,
             std::string tag, std::string title,
             const SourceRange &sourceRange,
-            bool printSourceText);
+            bool printSourceText,int printSourceTextLimit=512);
     static const int EMPTY_ENUM_VAL=-1;
 
 };

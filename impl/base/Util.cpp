@@ -736,7 +736,7 @@ void  Util::printSourceRange(int64_t nodeID,
         const char *topCategoryEnumFieldName, int topCategoryEnum,
         const char *category1FieldName, int category1Enum,
         const char *category2FieldName,int category2Enum,
-        bool printSourceText){
+        bool printSourceText,int printSourceTextLimit){
   SourceManager & SM=CI.getSourceManager();
   FileID mainFileId = SM.getMainFileID();
 //  FileID fileId = SM.getFileID(caseKSrcRange.getBegin());
@@ -766,8 +766,8 @@ void  Util::printSourceRange(int64_t nodeID,
       << "," << category2FieldName << ":" << category2Enum
     ;
   }
-  if(printSourceText){
-    std::cout <<   ",源码:" << sourceText ;
+  if(printSourceText && sourceText.size()<printSourceTextLimit){
+    std::cout <<   ",源码:【" << sourceText << "】" ;
   }
 
   std::cout  << std::endl;
@@ -778,7 +778,7 @@ void  Util::printSourceRangeSimple(
                              CompilerInstance& CI,
                              std::string tag, std::string title,
                               const SourceRange &sourceRange,
-                             bool printSourceText){
+                             bool printSourceText,int printSourceTextLimit){
 
   SourceManager & SM=CI.getSourceManager();
   FileID fileId = SM.getFileID(sourceRange.getBegin() );
@@ -796,8 +796,8 @@ void  Util::printSourceRangeSimple(
           <<  ",mainFileId:" << mainFileId.getHashValue()
           << ",fileId:" << fileId.getHashValue()
           ;
-  if(printSourceText){
-    std::cout <<   ",源码:" << sourceText ;
+  if(printSourceText && sourceText.size()<printSourceTextLimit){
+    std::cout <<   ",源码:【" << sourceText << "】" ;
   }
   std::cout  << std::endl;
 
