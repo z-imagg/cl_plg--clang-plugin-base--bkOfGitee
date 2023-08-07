@@ -154,6 +154,8 @@ public:
     static bool parentIsCompound(ASTContext* astContext, const Stmt* currentStmt);
     static bool anyParentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass);
     static bool parentKindIsSame(ASTContext *Ctx, const Stmt* stmt, const ASTNodeKind& kind);
+    //若只有一个父亲，填充 父亲、父亲语句类型，返回true。否则 不填充，返回false。
+    static bool only1ParentStmtClass(ASTContext& astContext, const Stmt* stmt,const Stmt* & parentStmt, Stmt::StmtClass & parentStmtCls );
     /**
      * 在声明语句 中 声明的变量个数
      * 比如 :
