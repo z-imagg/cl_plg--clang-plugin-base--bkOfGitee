@@ -33,6 +33,10 @@ using namespace clang;
 
 class Util {
 public:
+    //父亲节点们转换
+    template<typename ParentNodeTp>
+    static void collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,const ParentNodeTp*>> & parentVec);
+
     //位置范围A 是否 包含 位置范围B ， 相等也算包含。
     // 由于SourceRange::fullyContains的结果是错误的，因此用自制同名方法替代
     static bool fullContains(SourceManager& SM, SourceRange A, SourceRange B);

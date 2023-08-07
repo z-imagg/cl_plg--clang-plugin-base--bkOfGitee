@@ -18,6 +18,18 @@ using namespace llvm;
 using namespace clang;
 
 
+//父亲节点们转换
+template<typename ParentNodeTp>
+void Util::collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,const ParentNodeTp*>> & parentVec){
+//      const DynTypedNodeList &parents = ctx.getParents(*stmt);
+
+  for (const auto& parent : parents) {
+    auto stmtParent = parent.get<ParentNodeTp>();
+    auto parentNodeKind=parent.getNodeKind();
+    parentVec.push_back(std::make_tuple(parentNodeKind,stmtParent));
+  }
+}
+
 bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
 
 
