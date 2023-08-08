@@ -18,6 +18,16 @@ using namespace llvm;
 using namespace clang;
 
 
+void Util::PresumedLocToString(const PresumedLoc& prLoc,std::string& result){
+  result = fmt::format(
+   "valid:{},fileID:{},{}:{}:{}",
+   prLoc.isValid(),
+   prLoc.getFileID().getHashValue(),
+   prLoc.getFilename(),
+   prLoc.getLine(),
+   prLoc.getColumn()
+ );
+}
 
 //region 函数Util::collectParentS 的使用例子.
 void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt *stmt) {
@@ -95,7 +105,7 @@ SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const Source
   const SourceLocation nextTokenLoc = Lexer::getLocForEndOfToken(thisToken.getEndLoc(), /*向右移1个Token*/offset, SM, LO);
   return nextTokenLoc;
 }
-void Util::wrapByComment(const char* in,   std::string& out){
+void Util::wrapByComment(std::string in,   std::string& out){
   out = fmt::format("/*{}*/", in);
 }
 //是否 独立且容器 语句

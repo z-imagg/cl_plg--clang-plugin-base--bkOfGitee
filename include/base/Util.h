@@ -33,6 +33,8 @@ using namespace clang;
 
 class Util {
 public:
+    //可读位置转为字符串
+    static void PresumedLocToString(const PresumedLoc& prLoc,std::string& result);
 
    //父亲节点们 转为 指定类型 的 节点列表, 注意模板方法只能放在头文件中.
 /**
@@ -63,7 +65,7 @@ public:
     static bool LocIsInMacro(SourceLocation Loc, SourceManager& SM);
     //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
     static SourceLocation nextTokenLocation(SourceLocation thisTokenLocation, const SourceManager& SM,const LangOptions& LO,int offset=1);
-    static void wrapByComment(const char* in,   std::string& out);
+    static void wrapByComment(std::string in,   std::string& out);
     /**是否 独立且容器 语句
      * 所谓 容器 即 能容纳别的语句 的语句
      * 所以 独立 即 能独立存在 而不会报语法错误 的语句
