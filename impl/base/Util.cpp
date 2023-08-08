@@ -18,15 +18,40 @@ using namespace llvm;
 using namespace clang;
 
 
-void Util::PresumedLocToString(const PresumedLoc& prLoc,std::string& result){
-  result = fmt::format(
-   "valid:{},fileID:{},{}:{}:{}",
-   prLoc.isValid(),
-   prLoc.getFileID().getHashValue(),
-   prLoc.getFilename(),
-   prLoc.getLine(),
-   prLoc.getColumn()
- );
+//开始位置、结束位置、插入者 转为 人类可读字符注释文本
+void Util::BE_Loc_HumanText(SourceManager& SM, const SourceLocation beginLoc, const SourceLocation endLoc, const std::string whoInserted,std::string& humanTextComment){
+
+  const PresumedLoc &BLocPr = SM.getPresumedLoc(beginLoc);
+  std::string BLocPr_str = fmt::format(
+    "valid:{},fileID:{},{}:{}:{}",
+    BLocPr.isValid(),
+    BLocPr.getFileID().getHashValue(),
+    BLocPr.getFilename(),
+    BLocPr.getLine(),
+    BLocPr.getColumn()
+  );
+
+  const PresumedLoc &ELocPr = SM.getPresumedLoc(endLoc);
+
+  //若果B、E 文件名相同，则省略E文件名，以节省占地长度，增加人类可阅读性。
+  std::string BLocPrFN = BLocPr.getFilename();
+  std::string ELocPrFN = ELocPr.getFilename();
+  if (ELocPrFN==BLocPrFN){
+    ELocPrFN="同始";
+  }
+
+  std::string ELocPr_str = fmt::format(
+      "valid:{},fileID:{},{}:{}:{}",
+      ELocPr.isValid(),
+      ELocPr.getFileID().getHashValue(),
+      ELocPrFN,
+      ELocPr.getLine(),
+      ELocPr.getColumn()
+  );
+
+
+  humanTextComment=fmt::format("/*{}，始【{}】，终【{}】*/", whoInserted, BLocPr_str, ELocPr_str);
+
 }
 
 //region 函数Util::collectParentS 的使用例子.
@@ -104,9 +129,6 @@ SourceLocation Util::nextTokenLocation(SourceLocation thisTokenLoc, const Source
   //步骤2. 相对 该Token的结束位置 右移1个Token 所获得的位置 即 下一个token位置
   const SourceLocation nextTokenLoc = Lexer::getLocForEndOfToken(thisToken.getEndLoc(), /*向右移1个Token*/offset, SM, LO);
   return nextTokenLoc;
-}
-void Util::wrapByComment(std::string in,   std::string& out){
-  out = fmt::format("/*{}*/", in);
 }
 //是否 独立且容器 语句
 bool Util::isAloneContainerStmt(const Stmt *stmt){
