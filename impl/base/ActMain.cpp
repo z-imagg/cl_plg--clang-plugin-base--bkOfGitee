@@ -8,7 +8,7 @@
 #include "clang/Tooling/ArgumentsAdjusters.h"
 #include "clang/Rewrite/Core/Rewriter.h"
 #include "clang/Lex/PreprocessorOptions.h"
-#include "Brc/BrcAstCnsm.h"
+#include "Var/VarAstCnsm.h"
 
 using namespace llvm;
 using namespace clang;
