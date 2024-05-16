@@ -14,8 +14,8 @@ throw e;                             \
 }                                    \
 }
 
-void __MyAssert__example(){
+/*void __MyAssert__example(){
     //由于MyAssert整体是个if{...}，因此结尾不需要分号
     MyAssert(1/0,"[AssertErr]NotFit:typeClassEqRecord||typeClassEqElaborated")
-}
+}*/
 #endif //MyAssert_H
