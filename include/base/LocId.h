@@ -19,7 +19,7 @@ std::unordered_set : 无排序,  去重。  这是这里的选择
 
 class LocId{
 public:
-    static LocId buildFor(std::string fp, const SourceLocation funcDeclBeginLoc, const clang::SourceManager& SM);
+    static LocId buildFor(std::string fp, const std::string funcQualifiedName, const SourceLocation funcDeclBeginLoc, const clang::SourceManager& SM);
 
     std::string to_string();
 public:
@@ -29,10 +29,12 @@ public:
     int column;
     std::string filePath;
 
+    //函数名 ： 冗余字段
+    const std::string funcName;
     LocId( ){};
     LocId(
 //            Decl::Kind declKind, Stmt::StmtClass stmtClass,
-            std::string filePath,int line, int column);
+            std::string filePath,const std::string funcQualifiedName,int line, int column);
 
     bool containedByRange(SourceManager&SM, SourceRange range);
 
