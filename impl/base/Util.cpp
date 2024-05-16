@@ -299,11 +299,14 @@ bool Util::isSysSrcFile(StringRef fn) {
   bool isInternal=(startWithUsr||isLLVM01||isLLVM02);
   return isInternal;
 }
-bool Util::isTickSrcFile(StringRef fn) {
+bool Util::isRuntimeSrcFile(StringRef fn,std::string runtimeBaseName) {
+  std::string headerF=runtimeBaseName.append(".h");
+  std::string cF=runtimeBaseName.append(".c");
+  std::string cppF=runtimeBaseName.append(".cpp");
   bool isTick =
-          fn.endswith("t_clock_tick.h")
-          || fn.endswith("t_clock_tick.c")
-          || fn.endswith("t_clock_tick.cpp")
+          fn.endswith(headerF)
+          || fn.endswith(cF)
+          || fn.endswith(cppF)
   ;
   return isTick;
 }
