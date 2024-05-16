@@ -9,27 +9,19 @@
 using namespace clang;
 
 
-    LocId LocId::buildFor(std::string fp, const std::string funcQualifiedName, const SourceLocation funcDeclBeginLoc, const clang::SourceManager& SM){
-//      const SourceLocation &funcDeclBeginLoc = funcDecl->getBeginLoc();
+    LocId LocId::buildFor(std::string fp, const SourceLocation srcLoc, const clang::SourceManager& SM){
       int line;
       int column;
-//      Decl::Kind kind = funcDecl->getKind();
-//      Stmt::StmtClass xx = funcDecl->getBody()->getStmtClass();
-      Util::extractLineAndColumn(SM,funcDeclBeginLoc,line,column);
-      return LocId(fp,funcQualifiedName,line,column);
+      Util::extractLineAndColumn(SM, srcLoc, line, column);
+      return LocId(fp ,line,column);
     }
 
     std::string LocId::to_string(){
       return fmt::format("{}:{},{}",filePath,line,column);
     }
-LocId:: LocId(
-//            Decl::Kind declKind, Stmt::StmtClass stmtClass,
-            std::string filePath,const std::string funcQualifiedName,int line, int column)
+LocId:: LocId( std::string filePath, int line, int column)
     :
-//    declKind(declKind),
-//    stmtClass(stmtClass),
       filePath(filePath),
-      funcName(funcQualifiedName),
       line(line),
     column(column)
     {
