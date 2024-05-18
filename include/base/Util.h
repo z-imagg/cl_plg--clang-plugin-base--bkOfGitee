@@ -183,6 +183,14 @@ public:
      */
     static bool hasAttrKind(Stmt *stmt, attr::Kind attrKind);
     static void extractLineAndColumn(const clang::SourceManager& SM, const clang::SourceLocation& sourceLocation, int& line, int& column);
+    /** 两给定'SourceLocation'的行号是否相同
+     *
+     * @param SM
+     * @param srcLoc1
+     * @param srcLoc2
+     * @return
+     */
+    static bool isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2);
     static bool parentIsCompound(ASTContext* astContext, const Stmt* currentStmt);
     static bool anyParentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass);
     static bool parentKindIsSame(ASTContext *Ctx, const Stmt* stmt, const ASTNodeKind& kind);
