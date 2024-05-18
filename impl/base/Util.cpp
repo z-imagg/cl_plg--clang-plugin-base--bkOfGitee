@@ -503,6 +503,14 @@ void Util::extractLineAndColumn(const clang::SourceManager& SM, const clang::Sou
   return;
 }
 
+bool Util::isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2) {
+  clang::PresumedLoc presumedLoc1 = SM.getPresumedLoc(srcLoc1);
+  clang::PresumedLoc presumedLoc2 = SM.getPresumedLoc(srcLoc2);
+  int line1 = presumedLoc1.getLine();
+  int line2 = presumedLoc2.getLine();
+  bool lineNumEqual=(line1==line2);
+  return lineNumEqual;
+}
 bool Util::parentIsCompound(ASTContext* astContext, const Stmt* currentStmt) {
   bool parentKindIsCompound= Util::parentKindIsSame(astContext, currentStmt, ASTNodeKind::getFromNodeKind<CompoundStmt>());
   bool parentClassIsCompound= Util::anyParentClassEqual(astContext, currentStmt, Stmt::CompoundStmtClass);
