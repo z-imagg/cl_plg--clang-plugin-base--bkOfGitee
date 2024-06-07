@@ -75,8 +75,15 @@ int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory
 /llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/lib/clang/15.0.0/include/stddef.h
    */
 
+  /*
+工作目录: /fridaAnlzAp/sleuthkit-4.12.1/tsk/fs/
+编译命令: /app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang++ -I /fridaAnlzAp/clang-var/runtime_cpp__vars_fn/include/ -include runtime_cpp__vars_fn.h -Xclang -load -Xclang /fridaAnlzAp/clang-var/build/lib/libVarPlugin.so -Xclang -add-plugin -Xclang VarPlugin -std=c++14 -DHAVE_CONFIG_H -I. -I../../tsk -I../.. -I./../.. -I/usr/local/include -Wall -Wextra -Wno-unused-parameter -g1 -O0 -MT apfs.lo -MD -MP -MF .deps/apfs.Tpo -c apfs.cpp -fPIC -DPIC -o .libs/apfs.o
+   */
 //ActMain添加头文件路径例子
-//  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/build-llvm15/utils/TableGen"},tooling::ArgumentInsertPosition::END));
+  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","."},tooling::ArgumentInsertPosition::BEGIN));
+    Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","../../tsk"},tooling::ArgumentInsertPosition::BEGIN));
+    Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","./../.."},tooling::ArgumentInsertPosition::BEGIN));
+    Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","usr/local/include"},tooling::ArgumentInsertPosition::BEGIN));
 //  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/llvm-project/llvm/utils/TableGen"},tooling::ArgumentInsertPosition::END));
 //  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/build-llvm15/include"},tooling::ArgumentInsertPosition::END));
 //  Tool.appendArgumentsAdjuster( clang::tooling::getInsertArgumentAdjuster({"-I","/pubx/llvm-project/llvm/include"},tooling::ArgumentInsertPosition::END));
