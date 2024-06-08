@@ -42,18 +42,17 @@ public:
     static bool fullContains(SourceManager& SM, SourceRange A, SourceRange B);
     //给定位置是否在宏中
     static bool LocIsInMacro(SourceLocation Loc, SourceManager& SM);
-    //从给定位置的Token移动到下一个Token所得的位置。 由于switch语句中冒号下一个Token位置的奇怪结果，导致此方法 是否在任何情况下都能实现 移动到下一个位置 有待确定
-    static SourceLocation nextTokenLocation(SourceLocation thisTokenLocation, const SourceManager& SM,const LangOptions& LO,int offset=1);
-    /**是否 独立且容器 语句
-     * 所谓 容器 即 能容纳别的语句 的语句
-     * 所以 独立 即 能独立存在 而不会报语法错误 的语句
-     *
-     *注意 else 是容器语句，但else不能独立存在，因此 else 不是 独立且容器 语句
-     *   else必须依附if才能存在
-     * 块、if、for、while、do-while  是  独立且容器 语句
-     * @param stmt
-     * @return
-     */
+
+  /**是否 独立且容器 语句
+   * 所谓 容器 即 能容纳别的语句 的语句
+   * 所以 独立 即 能独立存在 而不会报语法错误 的语句
+   *
+   *注意 else 是容器语句，但else不能独立存在，因此 else 不是 独立且容器 语句
+   *   else必须依附if才能存在
+   * 块、if、for、while、do-while  是  独立且容器 语句
+   * @param stmt
+   * @return
+   */
     static bool isAloneContainerStmt(const Stmt *stmt)  ;
 
   static void emptyStrIfNullStr(const char* &cstr);
