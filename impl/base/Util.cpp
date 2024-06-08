@@ -14,7 +14,7 @@
 #include "base/UtilEndStmtOf.h"
 #include "base/UtilFuncIsX.h"
 #include "base/UtilRewriteBuffer.h"
-#include "UtilCompoundStmt.h"
+#include "base/UtilCompoundStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
