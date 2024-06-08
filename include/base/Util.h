@@ -37,28 +37,7 @@ public:
     static void BE_Loc_HumanText(SourceManager& SM,const SourceLocation beginLoc,const SourceLocation endLoc,const std::string whoInserted,std::string& humanTextComment);
 
    //父亲节点们 转为 指定类型 的 节点列表, 注意模板方法只能放在头文件中.
-/**
- * 父亲节点们 转为 指定类型 的 节点列表，
- *     指定类型 不合适， 即  若父亲i的类型  不是  指定类型，  则返回向量中i位置为NULL，
- *            可以通过返回向量中i位置的ASTNodeKind确定给定何类型合适。
- * @tparam ParentNodeTp 指定类型
- * @param parents 输入的 父亲节点们
- * @param parentVec 返回 元组<父亲i的ASTNodeKind,父亲i转为给定类型的结果> 向量
- */
-    template<typename ParentNodeTp>
-    static void collectParentS(const DynTypedNodeList &parents ,std::vector<std::tuple<ASTNodeKind,SourceRange,const ParentNodeTp*>> & parentVec){
-//      const DynTypedNodeList &parents = ctx.getParents(*stmt);
-
-      for (const DynTypedNode& parentNodeI : parents) {
-        //注意  :  parentNodeI.get<T>():  如果parentNode不是类型T的，此get返回NULL
-        const ParentNodeTp *parentI = parentNodeI.get<ParentNodeTp>();
-        SourceRange parentISourceRange=parentNodeI.getSourceRange();
-
-        const ASTNodeKind &parentINodeKind = parentNodeI.getNodeKind();
-        parentVec.push_back(std::make_tuple(parentINodeKind, parentISourceRange,parentI));
-      }
-    }
-    //位置范围A 是否 包含 位置范围B ， 相等也算包含。
+//位置范围A 是否 包含 位置范围B ， 相等也算包含。
     // 由于SourceRange::fullyContains的结果是错误的，因此用自制同名方法替代
     static bool fullContains(SourceManager& SM, SourceRange A, SourceRange B);
     //给定位置是否在宏中
