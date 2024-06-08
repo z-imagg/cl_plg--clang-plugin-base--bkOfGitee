@@ -34,6 +34,7 @@
 #include "base/UtilAttrKind.h"
 #include "base/UtilStmtLs.h"
 #include "base/UtilEditBuffer.h"
+#include "base/UtilStr.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -128,11 +129,6 @@ bool Util::isAloneContainerStmt(const Stmt *stmt){
   bool IsSwitchStmt=isa<SwitchStmt>(*stmt);
   bool isContainerStmt = IsCompoundStmt || IsIfStmt || IsForStmt || IsCXXForRangeStmt || IsWhileStmt || IsDoStmt || IsSwitchStmt;
   return isContainerStmt;
-}
-
-void Util::emptyStrIfNullStr(const char* &cstr){
-//  whoInserted=(whoInserted==NULL?"":whoInserted);
-  cstr=(cstr==NULL?"":cstr);
 }
 
 std::string Util::pointerToString(void* ptr) {
