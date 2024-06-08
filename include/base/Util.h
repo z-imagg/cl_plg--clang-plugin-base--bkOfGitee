@@ -81,14 +81,9 @@ public:
     
     //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
-    //在给定声明列表中，找到第一个在MainFile的声明
-    static Decl* firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec);
-    //判断给定声明是否在主文件中
-    static bool isDeclInMainFile(SourceManager&SM, Decl* D);
 
-    static bool LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
+  static bool LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
     static bool LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
-    static void getMainFileIDMainFilePath(SourceManager& SM,FileID& mainFileId,std::string& mainFilePath);
 
   /** void函数、构造函数 最后一条语句是return吗？
    * @param funcDesc
@@ -121,8 +116,8 @@ public:
     static bool isSysSrcFile(StringRef fn);
     static bool isRuntimeSrcFile(StringRef fn,std::string runtimeBaseName) ;
     static void copySrcFile(std::string srcFilePath,std::string destRootDir="/tmp/");
-    static bool LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc);
-    static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
+
+  static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
   static bool envVarEq(std::string varName, std::string varValueExpect);
 

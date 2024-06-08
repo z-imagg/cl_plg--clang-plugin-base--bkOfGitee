@@ -14,6 +14,7 @@ set(base_util__SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilRewriteBuffer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilCompoundStmt.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilLineNum.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilMainFile.cpp"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/ASTContextUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/StrUtil.cpp"
