@@ -33,6 +33,7 @@
 #include "base/UtilRetStmt.h"
 #include "base/UtilAttrKind.h"
 #include "base/UtilStmtLs.h"
+#include "base/UtilEditBuffer.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -136,11 +137,6 @@ void Util::emptyStrIfNullStr(const char* &cstr){
 
 std::string Util::pointerToString(void* ptr) {
   return std::to_string(reinterpret_cast<long long>(ptr));
-}
-
-void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
-  RewriteBuffer &editBuffer = rewriter_ptr->getEditBuffer(mainFileId);
-  UtilRewriteBuffer::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
 }
 
 
