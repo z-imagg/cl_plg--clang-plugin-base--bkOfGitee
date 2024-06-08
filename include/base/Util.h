@@ -62,18 +62,6 @@ public:
     static std::string pointerToString(void* ptr);
 
 
-  /**
-   * 在声明语句 中 声明的变量个数
-   * 比如 :
-   * 输入 "int i;",  返回1
-   * 输入 "float sum,x=0,y;", 返回3
-   * 输入 非变量声明语句,  返回0
-   * @param stmt
-   * @return
-   */
-    static int varCntInVarDecl(DeclStmt* stmt);
-
-
 };
 
 
