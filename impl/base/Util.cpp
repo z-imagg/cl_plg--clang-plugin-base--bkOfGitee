@@ -13,6 +13,7 @@
 #include "base/UtilInsertInclude.h"
 #include "base/UtilEndStmtOf.h"
 #include "base/UtilFuncIsX.h"
+#include "base/UtilRewriteBuffer.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -334,28 +335,9 @@ bool Util::envVarEq(std::string varName, std::string varValueExpect){
 
 void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
   RewriteBuffer &editBuffer = rewriter_ptr->getEditBuffer(mainFileId);
-  Util::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
+  UtilRewriteBuffer::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
 }
 
-std::string Util::rewriteBufferToString(const RewriteBuffer &buffer) {
-  return std::string(buffer.begin(), buffer.end());
-}
-void Util::saveRewriteBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
-  const RewriteBuffer *pRewriteBuffer = rewriter_ptr->getRewriteBufferFor(mainFileId);
-  Util::saveRewriteBuffer0(pRewriteBuffer,filePath,"saveRewriteBuffer:");
-}
-
-void Util::saveRewriteBuffer0(const RewriteBuffer *pRewriteBuffer,std::string filePath,std::string title){
-//  const RewriteBuffer *pRewriteBuffer = rewriter_ptr->getRewriteBufferFor(mainFileId);
-  std::string cppText = rewriteBufferToString(*pRewriteBuffer);
-
-  std::ofstream fWriter;
-  fWriter.open(filePath);
-  fWriter << cppText ;
-  fWriter.close();
-
-  std::cout << title << filePath <<std::endl;
-}
 bool Util::isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context) {
   auto parents = context.getParents(*stmt);
 
