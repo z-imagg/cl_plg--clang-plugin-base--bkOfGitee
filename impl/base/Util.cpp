@@ -37,7 +37,7 @@
 #include "base/UtilStr.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilVarDecl.h"
-#include "UtilMacro.h"
+#include "base/UtilMacro.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
