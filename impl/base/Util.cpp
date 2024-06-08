@@ -16,6 +16,7 @@
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilCompoundStmt.h"
 #include "base/UtilLineNum.h"
+#include "UtilMainFile.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -195,23 +196,6 @@ std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
   std::string msg(fmt::format("DiagnosticsEngine错误个数: error:{},hasErrorOccurred:{},hasFatalErrorOccurred:{},hasUncompilableErrorOccurred:{},hasUnrecoverableErrorOccurred:{}",error,hasErrorOccurred,hasFatalErrorOccurred,hasUncompilableErrorOccurred,hasUnrecoverableErrorOccurred));
   return msg;
 }
-Decl* Util::firstDeclInMainFile(SourceManager&SM, std::vector<Decl*> declVec){
-  for(int k=0; k < declVec.size(); k++){
-    Decl* decl=declVec[k];
-    SourceLocation Loc=decl->getBeginLoc();
-    bool inMainFile=SM.isWrittenInMainFile(Loc);
-    if(inMainFile){
-      return decl;
-    }
-  }
-  return NULL;
-}
-
-bool Util::isDeclInMainFile(SourceManager&SM, Decl* D){
-  //判断当前文件是否主文件
-  bool inMainFile=SM.isWrittenInMainFile(D->getBeginLoc());
-  return inMainFile;
-}
 
 bool Util::LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
   return !Util::LocIdSetNotContains(_set,locId);
@@ -219,11 +203,6 @@ bool Util::LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
 bool Util::LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
   bool contains=(_set.count(locId) <= 0);
   return contains;
-}
-void Util::getMainFileIDMainFilePath(SourceManager& SM,FileID& mainFileId,std::string& mainFilePath){
-  mainFileId = SM.getMainFileID();
-  mainFilePath=SM.getFileEntryForID(mainFileId)->getName().str();
-  return  ;
 }
 
 /** void函数、构造函数 最后一条语句是return吗？
@@ -286,13 +265,7 @@ void Util::copySrcFile(std::string filePath,std::string destRootDir){
   std::cout << "查看，复制文件路径:" << filePath << "到,文件路径:" << filePathCopy << std::endl;
 
 }
-bool Util::LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc){
-  FileID mainFileId = SM.getMainFileID();
-  FileID fileId = SM.getFileID(Loc);
-  bool LocInMainFile=(mainFileId==fileId);
-//  bool LocInMainFile=SM.isWrittenInMainFile(Loc); //TODO 问 此方法LocFileIDEqMainFileID 可以被 SM.isWrittenInMainFile 替代吗?
-  return LocInMainFile;
-}
+
 bool Util::envVarEq(std::string varName, std::string varValueExpect){
   if(varName.empty()){
     return false;
