@@ -29,6 +29,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilFuncIsX.h"
+#include "UtilRetStmt.h"
 
 bool UtilFuncIsX::funcIsDefault(FunctionDecl *funcDecl){
   bool isDefault=funcDecl->isExplicitlyDefaulted() || funcDecl->isDefaulted();

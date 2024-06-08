@@ -67,8 +67,6 @@ public:
   static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
 
-  static bool isReturnStmtClass(Stmt *stmt );
-
   /**语句是否有该属性
    *
    * @param stmt

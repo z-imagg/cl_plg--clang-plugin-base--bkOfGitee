@@ -30,6 +30,7 @@
 #include "base/UtilConvertNodeType.h"
 #include "base/UtilNextToken.h"
 #include "base/UtilSrcRangeRelation.h"
+#include "UtilRetStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -140,17 +141,6 @@ void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID m
   UtilRewriteBuffer::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
 }
 
-
-bool Util::isReturnStmtClass(Stmt *stmt ){
-  bool stmtIsReturn=false;
-  if(stmt){
-    Stmt::StmtClass endStmtClass = stmt->getStmtClass();
-    if(Stmt::ReturnStmtClass==endStmtClass){
-      stmtIsReturn=true;
-    }
-  }
-  return stmtIsReturn;
-}
 
 bool Util::hasAttrKind(Stmt *stmt, attr::Kind attrKind){
   if(!stmt){
