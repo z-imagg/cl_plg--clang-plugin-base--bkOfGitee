@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilRewriteBuffer.h"
+#include "base/UtilRewriteBuffer.h"
 #include "base/UtilFuncIsX.h"
 #include "base/UtilEndStmtOf.h"
 #include "base/UtilInsertInclude.h"
