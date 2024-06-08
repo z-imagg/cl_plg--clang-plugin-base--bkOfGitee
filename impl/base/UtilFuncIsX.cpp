@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilFuncIsX.h"
+#include "base/UtilFuncIsX.h"
 #include "base/UtilEndStmtOf.h"
 #include "base/UtilInsertInclude.h"
 #include "base/UtilPrintAstNode.h"

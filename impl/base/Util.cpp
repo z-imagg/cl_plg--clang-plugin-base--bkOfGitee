@@ -12,7 +12,7 @@
 #include "base/UtilPrintAstNode.h"
 #include "base/UtilInsertInclude.h"
 #include "base/UtilEndStmtOf.h"
-#include "UtilFuncIsX.h"
+#include "base/UtilFuncIsX.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
