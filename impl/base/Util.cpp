@@ -26,7 +26,7 @@
 #include "base/UtilInsertInclude.h"
 #include "base/UtilFuncDecl.h"
 #include "base/UtilDiagnostics.h"
-#include "UtilSubStmt.h"
+#include "base/UtilSubStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
