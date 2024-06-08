@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilGetSrcFilePathByLoc.h"
+#include "base/UtilGetSrcFilePathByLoc.h"
 #include "base/UtilParentKind.h"
 #include "clang/Frontend/FrontendPluginRegistry.h"
 #include "clang/Basic/SourceManager.h"

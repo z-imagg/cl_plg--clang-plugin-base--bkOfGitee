@@ -7,7 +7,7 @@
 #include "clang/Basic/SourceManager.h"
 #include "clang/Frontend/FrontendPluginRegistry.h"
 #include "base/UtilParentKind.h"
-#include "UtilGetSrcFilePathByLoc.h"
+#include "base/UtilGetSrcFilePathByLoc.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
