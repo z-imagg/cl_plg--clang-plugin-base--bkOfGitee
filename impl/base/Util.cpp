@@ -19,7 +19,7 @@
 #include "base/UtilMainFile.h"
 #include "base/UtilLocId.h"
 #include "base/UtilIsSysSrcFileOrMe.h"
-#include "UtilStmtEndSemicolon.h"
+#include "base/UtilStmtEndSemicolon.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>

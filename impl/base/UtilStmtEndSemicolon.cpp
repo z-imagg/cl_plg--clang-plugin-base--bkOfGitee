@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilStmtEndSemicolon.h"
+#include "base/UtilStmtEndSemicolon.h"
 #include "base/UtilIsSysSrcFileOrMe.h"
 #include "base/UtilLocId.h"
 #include "base/UtilMainFile.h"
