@@ -123,8 +123,7 @@ public:
    */
     static int varCntInVarDecl(DeclStmt* stmt);
 
-  static FunctionDecl* findFuncDecByName(ASTContext *Ctx,std::string functionName);
-    static std::vector<std::string> stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions);
+  static std::vector<std::string> stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions);
 
 
 };

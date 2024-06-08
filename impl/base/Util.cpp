@@ -24,6 +24,7 @@
 #include "base/UtilEnvVar.h"
 #include "base/UtilFuncIsX.h"
 #include "base/UtilInsertInclude.h"
+#include "base/UtilFuncDecl.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -280,20 +281,6 @@ int Util::varCntInVarDecl(DeclStmt* declStmt) {
 //  }
 }
 
-
-FunctionDecl* Util::findFuncDecByName(ASTContext *Ctx,std::string functionName){
-//    std::string functionName = "calc";
-
-  TranslationUnitDecl* translationUnitDecl=Ctx->getTranslationUnitDecl();
-  for(auto decl:translationUnitDecl->decls()){
-    if(FunctionDecl* funcDecl = dyn_cast<FunctionDecl>(decl)){
-      if(funcDecl->getNameAsString()==functionName){
-        return funcDecl;
-      }
-    }
-  }
-  return NULL;
-}
 
 std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions){
   std::vector<std::string> textVec;
