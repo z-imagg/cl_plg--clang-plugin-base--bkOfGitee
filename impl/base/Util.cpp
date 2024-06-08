@@ -31,7 +31,7 @@
 #include "base/UtilNextToken.h"
 #include "base/UtilSrcRangeRelation.h"
 #include "base/UtilRetStmt.h"
-#include "UtilAttrKind.h"
+#include "base/UtilAttrKind.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
