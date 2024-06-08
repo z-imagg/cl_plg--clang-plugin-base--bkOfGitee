@@ -32,12 +32,12 @@
 #include "base/Util.h"
 #include "base/UtilSubStmt.h"
 #include "base/UtilAttrKind.h"
-#include "UtilStmtLs.h"
+#include "base/UtilStmtLs.h"
 
 std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs , Stmt* &negativeSecond, SourceManager& SM, LangOptions& langOptions) {
   std::vector<Stmt*> subStmtVec(subStmtLs.begin(), subStmtLs.end());
   unsigned long subStmtCnt = subStmtVec.size();
-  const std::vector<std::string> &textVec = Util::stmtLs2TextLs(subStmtVec, SM, langOptions);
+  const std::vector<std::string> &textVec = UtilStmtLs::stmtLs2TextLs(subStmtVec, SM, langOptions);
   if(subStmtCnt>=2){
     //倒数第二条语句
     negativeSecond=subStmtVec[subStmtCnt-2];
