@@ -10,7 +10,7 @@
 #include "base/UtilGetSrcFilePathByLoc.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilPrintAstNode.h"
-#include "UtilInsertInclude.h"
+#include "base/UtilInsertInclude.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
