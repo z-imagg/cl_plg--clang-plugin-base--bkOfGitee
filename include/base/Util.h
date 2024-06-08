@@ -89,20 +89,12 @@ public:
     static bool LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
     static bool LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
     static void getMainFileIDMainFilePath(SourceManager& SM,FileID& mainFileId,std::string& mainFilePath);
-    static int childrenCntOfCompoundStmt(CompoundStmt* stmt);
-    /** void函数、构造函数 最后一条语句是return吗？
-     * @param funcDesc
-     * @return
-     */
+
+  /** void函数、构造函数 最后一条语句是return吗？
+   * @param funcDesc
+   * @return
+   */
     static bool isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool isaCXXConstructorDecl,Stmt *endStmtOfFuncBody);
-    static bool GetCompoundLRBracLoc(CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc);
-    /**
-     *
-     * @param funcBody
-     * @param funcBodyLBraceLoc
-     * @return 是否组合语句,即是否CompoundStmt
-     */
-    static bool funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc);
 
   static void emptyStrIfNullStr(const char* &cstr);
     /** c++11 手工实现 string_format
@@ -133,9 +125,6 @@ public:
     static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
   static bool envVarEq(std::string varName, std::string varValueExpect);
-
-  static bool isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context);
-    static FunctionDecl *getContainingFunction(CompoundStmt *stmt, ASTContext &context);
 
 
   static bool isReturnStmtClass(Stmt *stmt );

@@ -14,6 +14,7 @@
 #include "base/UtilEndStmtOf.h"
 #include "base/UtilFuncIsX.h"
 #include "base/UtilRewriteBuffer.h"
+#include "base/UtilCompoundStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -223,13 +224,6 @@ void Util::getMainFileIDMainFilePath(SourceManager& SM,FileID& mainFileId,std::s
   mainFilePath=SM.getFileEntryForID(mainFileId)->getName().str();
   return  ;
 }
-int Util::childrenCntOfCompoundStmt(CompoundStmt* stmt){
-  if(!stmt){
-    return 0;
-  }
-//  int cnt=std::distance(stmt->child_begin(),stmt->child_end());
-  return stmt->size();
-}
 
 /** void函数、构造函数 最后一条语句是return吗？
  * @param funcDesc
@@ -244,29 +238,6 @@ bool Util::isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool 
     if(!endStmtIsReturn){
       return true;
     }
-  }
-  return false;
-}
-
-bool Util::GetCompoundLRBracLoc(CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc){
-  if( compoundStmt ){
-    funcBodyLBraceLoc = compoundStmt->getLBracLoc();
-    funcBodyRBraceLoc = compoundStmt->getRBracLoc();
-    return true;
-  }
-  return false;
-}
-/**
- *
- * @param funcBody
- * @param funcBodyLBraceLoc
- * @return 若是组合语句(CompoundStmt) ，则取左花括号位置
- */
-bool Util::funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc){
-  if( compoundStmt = dyn_cast<CompoundStmt>(funcBody)){
-    funcBodyLBraceLoc = compoundStmt->getLBracLoc();
-    funcBodyRBraceLoc = compoundStmt->getRBracLoc();
-    return true;
   }
   return false;
 }
@@ -336,54 +307,6 @@ bool Util::envVarEq(std::string varName, std::string varValueExpect){
 void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
   RewriteBuffer &editBuffer = rewriter_ptr->getEditBuffer(mainFileId);
   UtilRewriteBuffer::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
-}
-
-bool Util::isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context) {
-  auto parents = context.getParents(*stmt);
-
-  // 遍历父节点列表
-  for (auto it = parents.begin(); it != parents.end(); ++it) {
-    if (const FunctionDecl *func = it->get<FunctionDecl>()) {
-      // 检查CompoundStmt是否为最后一个块
-      Stmt *body = func->getBody();
-      if (body && body == stmt) {
-        return true;
-      }
-    } else if (const LambdaExpr *lambda = it->get<LambdaExpr>()) {
-      // 检查CompoundStmt是否为lambda表达式的最后一个块
-      Stmt *body = lambda->getBody();
-      if(body){
-        if (CompoundStmt *lambdaBody = dyn_cast<CompoundStmt>(body)) {
-          Stmt *lastStmt = lambdaBody->body_back();
-          if (lastStmt && lastStmt == stmt) {
-            return true;
-          }
-        }
-      }
-
-    }
-  }
-
-  return false;
-}
-FunctionDecl *Util::getContainingFunction(CompoundStmt *stmt, ASTContext &context) {
-  auto parents = context.getParents(*stmt);
-
-  // 遍历父节点列表
-  for (auto itJ = parents.begin(); itJ != parents.end(); ++itJ) {
-    if (const LambdaExpr *lambdaJ = itJ->get<LambdaExpr>()) {
-      // 返回包裹CompoundStmt的lambda
-      CXXMethodDecl *methodJ = lambdaJ->getCallOperator();
-      if (methodJ) {
-        return methodJ;
-      }
-    } else if (const FunctionDecl *funcJ = itJ->get<FunctionDecl>()) {
-      // 返回最近的FunctionDecl
-      return const_cast<FunctionDecl*>(funcJ);
-    }
-  }
-
-  return nullptr;
 }
 
 
