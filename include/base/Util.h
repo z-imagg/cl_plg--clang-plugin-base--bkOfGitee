@@ -99,8 +99,6 @@ public:
 
     static std::string pointerToString(void* ptr);
 
-  static void copySrcFile(std::string srcFilePath,std::string destRootDir="/tmp/");
-
   static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
   static bool envVarEq(std::string varName, std::string varValueExpect);
