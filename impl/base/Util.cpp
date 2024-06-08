@@ -12,6 +12,7 @@
 #include "base/UtilPrintAstNode.h"
 #include "base/UtilInsertInclude.h"
 #include "base/UtilEndStmtOf.h"
+#include "UtilFuncIsX.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -267,27 +268,6 @@ bool Util::funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& com
     return true;
   }
   return false;
-}
-bool Util::funcIsDefault(FunctionDecl *funcDecl){
-  bool isDefault=funcDecl->isExplicitlyDefaulted() || funcDecl->isDefaulted();
-  return isDefault;
-}
-bool Util::funcIsInline(FunctionDecl *funcDecl){
-
-    bool isInline=
-            funcDecl->isInlined()
-            || funcDecl->isInlineSpecified()
-            ;
-
-    //TODO 以下两个是否能作为inline的一种，不确定
-//  funcDecl->isInlineBuiltinDeclaration();
-//  funcDecl->isInlineNamespace();
-
-    return isInline;
-}
-bool Util::cxxConstructorIsDefault(CXXConstructorDecl *cxxCnstrDecl){
-  bool isDefault= cxxCnstrDecl->isExplicitlyDefaulted() || cxxCnstrDecl->isDefaulted() || cxxCnstrDecl->isDefaultConstructor();
-  return isDefault;
 }
 
 void Util::emptyStrIfNullStr(const char* &cstr){

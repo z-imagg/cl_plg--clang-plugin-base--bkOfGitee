@@ -103,32 +103,8 @@ public:
      * @return 是否组合语句,即是否CompoundStmt
      */
     static bool funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc);
-    /**
-     * default函数体举例:
-     * 'void func1( ) = default;'
-     * 'void func2( ) {}'
-     * @param funcDecl
-     * @return
-     */
-    static bool funcIsDefault(FunctionDecl *funcDecl);
 
-    /**
-     * inline函数举例:
-     * TODO
-     * @param funcDecl
-     * @return
-     */
-    static bool funcIsInline(FunctionDecl *funcDecl);
-    /**
-     * default构造函数体举例:
-     * 'User::User( ) = default;'
-     * 'User::User( ) {}'
-     * @param cxxCnstrDecl
-     * @return
-     */
-    static bool cxxConstructorIsDefault(CXXConstructorDecl *cxxCnstrDecl);
-
-    static void emptyStrIfNullStr(const char* &cstr);
+  static void emptyStrIfNullStr(const char* &cstr);
     /** c++11 手工实现 string_format
      * 模板，必须要放在头文件中.
      * @tparam Args
