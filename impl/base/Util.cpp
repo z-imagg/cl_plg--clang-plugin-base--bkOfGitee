@@ -15,6 +15,7 @@
 #include "base/UtilFuncIsX.h"
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilCompoundStmt.h"
+#include "base/UtilLineNum.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -96,17 +97,17 @@ bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
 
   SourceLocation aB = A.getBegin();
   int aBL,aBC;
-  Util::extractLineAndColumn(SM,aB,aBL,aBC);
+  UtilLineNum::extractLineAndColumn(SM,aB,aBL,aBC);
   SourceLocation aE = A.getEnd();
   int aEL,aEC;
-  Util::extractLineAndColumn(SM,aE,aEL,aEC);
+  UtilLineNum::extractLineAndColumn(SM,aE,aEL,aEC);
 
   SourceLocation xB = X.getBegin();
   int xBL,xBC;
-  Util::extractLineAndColumn(SM,xB,xBL,xBC);
+  UtilLineNum::extractLineAndColumn(SM,xB,xBL,xBC);
   SourceLocation xE = X.getEnd();
   int xEL,xEC;
-  Util::extractLineAndColumn(SM,xE,xEL,xEC);
+  UtilLineNum::extractLineAndColumn(SM,xE,xEL,xEC);
 
   bool _fullContains=
   (aBL < xBL || (aBL == xBL && aBC <= xBC) )    &&  //A开头位置行号 小于 x开头位置行号 , 行号相等时 列号同理
@@ -370,21 +371,6 @@ bool Util::hasAttrKind(Stmt *stmt, attr::Kind attrKind){
   }//if结束
 
   return false;
-}
-void Util::extractLineAndColumn(const clang::SourceManager& SM, const clang::SourceLocation& sourceLocation, int& line, int& column) {
-  clang::PresumedLoc presumedLoc = SM.getPresumedLoc(sourceLocation);
-  line = presumedLoc.getLine();
-  column = presumedLoc.getColumn();
-  return;
-}
-
-bool Util::isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2) {
-  clang::PresumedLoc presumedLoc1 = SM.getPresumedLoc(srcLoc1);
-  clang::PresumedLoc presumedLoc2 = SM.getPresumedLoc(srcLoc2);
-  int line1 = presumedLoc1.getLine();
-  int line2 = presumedLoc2.getLine();
-  bool lineNumEqual=(line1==line2);
-  return lineNumEqual;
 }
 
 
