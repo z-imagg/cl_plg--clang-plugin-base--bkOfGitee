@@ -17,7 +17,7 @@
 #include "base/UtilCompoundStmt.h"
 #include "base/UtilLineNum.h"
 #include "base/UtilMainFile.h"
-#include "UtilLocId.h"
+#include "base/UtilLocId.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
