@@ -1,5 +1,15 @@
 // Created by z on 2024/6/8.
 
+#include "base/UtilFuncIsX.h"
+#include "base/UtilEnvVar.h"
+#include "base/UtilFile.h"
+#include "base/UtilStmtEndSemicolon.h"
+#include "base/UtilIsSysSrcFileOrMe.h"
+#include "base/UtilLocId.h"
+#include "base/UtilMainFile.h"
+#include "base/UtilLineNum.h"
+#include "base/UtilCompoundStmt.h"
+#include "base/UtilRewriteBuffer.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -42,4 +52,21 @@ bool UtilFuncIsX::funcIsInline(FunctionDecl *funcDecl){
 bool UtilFuncIsX::cxxConstructorIsDefault(CXXConstructorDecl *cxxCnstrDecl){
   bool isDefault= cxxCnstrDecl->isExplicitlyDefaulted() || cxxCnstrDecl->isDefaulted() || cxxCnstrDecl->isDefaultConstructor();
   return isDefault;
+}
+
+/** void函数、构造函数 最后一条语句是return吗？
+ * @param funcDesc
+ * @return
+ */
+bool UtilFuncIsX::isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool isaCXXConstructorDecl, Stmt *endStmtOfFuncBody){
+  //void函数、构造函数 最后一条语句若不是return，则需在最后一条语句之后插入  函数释放语句
+  if(funcReturnType->isVoidType() || isaCXXConstructorDecl){
+    //是void函数 或是 构造函数: 此两者都可以末尾不显示写出return语句
+//    Stmt *endStmtOfFuncBody = funcDesc.endStmtOfFuncBody;
+    bool endStmtIsReturn=Util::isReturnStmtClass(endStmtOfFuncBody);
+    if(!endStmtIsReturn){
+      return true;
+    }
+  }
+  return false;
 }

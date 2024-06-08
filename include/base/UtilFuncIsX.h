@@ -47,6 +47,12 @@ static bool funcIsInline(FunctionDecl *funcDecl);
  * @return
  */
   static bool cxxConstructorIsDefault(CXXConstructorDecl *cxxCnstrDecl);
+
+/** void函数、构造函数 最后一条语句是return吗？
+ * @param funcDesc
+ * @return
+ */
+  static bool isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool isaCXXConstructorDecl,Stmt *endStmtOfFuncBody);
 };
 
 

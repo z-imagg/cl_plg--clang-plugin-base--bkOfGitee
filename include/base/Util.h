@@ -80,12 +80,6 @@ public:
   //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
 
-  /** void函数、构造函数 最后一条语句是return吗？
-   * @param funcDesc
-   * @return
-   */
-    static bool isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool isaCXXConstructorDecl,Stmt *endStmtOfFuncBody);
-
   static void emptyStrIfNullStr(const char* &cstr);
     /** c++11 手工实现 string_format
      * 模板，必须要放在头文件中.

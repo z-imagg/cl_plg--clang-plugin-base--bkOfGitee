@@ -22,6 +22,7 @@
 #include "base/UtilStmtEndSemicolon.h"
 #include "base/UtilFile.h"
 #include "base/UtilEnvVar.h"
+#include "base/UtilFuncIsX.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -169,23 +170,6 @@ std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
   bool hasUnrecoverableErrorOccurred = Diags.hasUnrecoverableErrorOccurred();
   std::string msg(fmt::format("DiagnosticsEngine错误个数: error:{},hasErrorOccurred:{},hasFatalErrorOccurred:{},hasUncompilableErrorOccurred:{},hasUnrecoverableErrorOccurred:{}",error,hasErrorOccurred,hasFatalErrorOccurred,hasUncompilableErrorOccurred,hasUnrecoverableErrorOccurred));
   return msg;
-}
-
-/** void函数、构造函数 最后一条语句是return吗？
- * @param funcDesc
- * @return
- */
-bool Util::isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType, bool isaCXXConstructorDecl,Stmt *endStmtOfFuncBody){
-  //void函数、构造函数 最后一条语句若不是return，则需在最后一条语句之后插入  函数释放语句
-  if(funcReturnType->isVoidType() || isaCXXConstructorDecl){
-    //是void函数 或是 构造函数: 此两者都可以末尾不显示写出return语句
-//    Stmt *endStmtOfFuncBody = funcDesc.endStmtOfFuncBody;
-    bool endStmtIsReturn=Util::isReturnStmtClass(endStmtOfFuncBody);
-    if(!endStmtIsReturn){
-      return true;
-    }
-  }
-  return false;
 }
 
 void Util::emptyStrIfNullStr(const char* &cstr){
