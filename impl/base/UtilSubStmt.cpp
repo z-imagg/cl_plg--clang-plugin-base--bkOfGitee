@@ -31,6 +31,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilSubStmt.h"
+#include "base/UtilAttrKind.h"
 
 std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs , Stmt* &negativeSecond, SourceManager& SM, LangOptions& langOptions) {
   std::vector<Stmt*> subStmtVec(subStmtLs.begin(), subStmtLs.end());
@@ -46,7 +47,7 @@ std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range 
 
   for (std::size_t j = 0; j < subStmtCnt; ++j) {
     Stmt* stmtJ = subStmtVec[j];
-    subStmtIsFallThroughVec[j]=Util::hasAttrKind(stmtJ, attr::FallThrough);
+    subStmtIsFallThroughVec[j]=UtilAttrKind::hasAttrKind(stmtJ, attr::FallThrough);
       //如果本行语句是'[[gnu::fallthrough]];'  , 那么下一行前不要插入时钟语句, 否则语法错误.
   }
   return subStmtIsFallThroughVec;

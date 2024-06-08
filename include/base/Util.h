@@ -67,14 +67,6 @@ public:
   static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
 
-  /**语句是否有该属性
-   *
-   * @param stmt
-   * @param attrKind
-   * @return
-   */
-    static bool hasAttrKind(Stmt *stmt, attr::Kind attrKind);
-
   /**
    * 在声明语句 中 声明的变量个数
    * 比如 :
