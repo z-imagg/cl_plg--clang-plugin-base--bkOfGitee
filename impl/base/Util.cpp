@@ -16,7 +16,7 @@
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilCompoundStmt.h"
 #include "base/UtilLineNum.h"
-#include "UtilMainFile.h"
+#include "base/UtilMainFile.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
