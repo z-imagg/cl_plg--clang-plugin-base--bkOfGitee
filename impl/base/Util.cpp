@@ -27,6 +27,7 @@
 #include "base/UtilFuncDecl.h"
 #include "base/UtilDiagnostics.h"
 #include "base/UtilSubStmt.h"
+#include "UtilConvertNodeType.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
