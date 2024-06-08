@@ -11,6 +11,7 @@
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilPrintAstNode.h"
 #include "base/UtilInsertInclude.h"
+#include "UtilEndStmtOf.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -424,22 +425,6 @@ FunctionDecl *Util::getContainingFunction(CompoundStmt *stmt, ASTContext &contex
 }
 
 
-
-Stmt* Util::endStmtOfFunc(FunctionDecl *funcDecl) {
-  Stmt *funcBody = funcDecl->getBody();
-  return Util::endStmtOfCompoundStmt(funcBody);
-}
-
-Stmt* Util::endStmtOfCompoundStmt(Stmt *funcBody){
-  if (funcBody && isa<CompoundStmt>(*funcBody)) {
-    CompoundStmt *compoundStmt = dyn_cast<CompoundStmt>(funcBody);
-    if (compoundStmt &&  (!compoundStmt->body_empty() ) ) {
-      Stmt *lastStmt = compoundStmt->body_back();
-      return lastStmt;
-    }
-  }
-  return NULL;
-}
 bool Util::isReturnStmtClass(Stmt *stmt ){
   bool stmtIsReturn=false;
   if(stmt){
