@@ -6,7 +6,7 @@
 #include "clang/AST/Stmt.h"
 #include "clang/Basic/SourceManager.h"
 #include "clang/Frontend/FrontendPluginRegistry.h"
-#include "UtilParentKind.h"
+#include "base/UtilParentKind.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
