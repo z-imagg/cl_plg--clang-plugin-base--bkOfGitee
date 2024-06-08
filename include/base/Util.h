@@ -101,8 +101,6 @@ public:
 
   static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
 
-  static bool envVarEq(std::string varName, std::string varValueExpect);
-
 
   static bool isReturnStmtClass(Stmt *stmt );
     /**计算语句列表中各语句是否为FallThrough，附带返回倒数第二条语句
