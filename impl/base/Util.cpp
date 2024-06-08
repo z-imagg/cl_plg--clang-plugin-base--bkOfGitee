@@ -29,7 +29,7 @@
 #include "base/UtilSubStmt.h"
 #include "base/UtilConvertNodeType.h"
 #include "base/UtilNextToken.h"
-#include "UtilSrcRangeRelation.h"
+#include "base/UtilSrcRangeRelation.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
