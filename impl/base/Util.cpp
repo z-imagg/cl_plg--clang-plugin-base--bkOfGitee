@@ -8,7 +8,7 @@
 #include "clang/Frontend/FrontendPluginRegistry.h"
 #include "base/UtilParentKind.h"
 #include "base/UtilGetSrcFilePathByLoc.h"
-#include "UtilGetSrcTxtBySrcRange.h"
+#include "base/UtilGetSrcTxtBySrcRange.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -594,7 +594,7 @@ std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceM
   std::vector<std::string> textVec;
 
   std::transform(stmtVec.begin(), stmtVec.end(), std::back_inserter(textVec), [&SM,&langOptions](Stmt* stmt) {
-      return getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
+      return UtilGetSrcTxtBySrcRange::getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
   });
 
   return textVec;
@@ -690,7 +690,7 @@ void  Util::printSourceRange(int64_t nodeID,
   FileID mainFileId = SM.getMainFileID();
 //  FileID fileId = SM.getFileID(caseKSrcRange.getBegin());
 
-  const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
+  const std::tuple<std::string, std::string> & frst = UtilGetSrcTxtBySrcRange::get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
   std::string sourceText=std::get<1>(frst);
 
@@ -733,7 +733,7 @@ void  Util::printSourceRangeSimple(
   FileID fileId = SM.getFileID(sourceRange.getBegin() );
   FileID mainFileId = SM.getMainFileID();
 
-  const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
+  const std::tuple<std::string, std::string> & frst = UtilGetSrcTxtBySrcRange::get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
   std::string sourceText=std::get<1>(frst);
 
