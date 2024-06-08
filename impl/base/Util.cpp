@@ -9,7 +9,7 @@
 #include "base/UtilParentKind.h"
 #include "base/UtilGetSrcFilePathByLoc.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
-#include "UtilPrintAstNode.h"
+#include "base/UtilPrintAstNode.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>

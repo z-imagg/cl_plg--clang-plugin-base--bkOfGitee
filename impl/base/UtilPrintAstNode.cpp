@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilPrintAstNode.h"
+#include "base/UtilPrintAstNode.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilGetSrcFilePathByLoc.h"
 #include "base/UtilParentKind.h"
