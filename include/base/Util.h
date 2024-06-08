@@ -191,20 +191,16 @@ public:
      * @return
      */
     static bool isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2);
-    static bool parentIsCompound(ASTContext* astContext, const Stmt* currentStmt);
-    static bool anyParentClassEqual(ASTContext* astContext, const Stmt* stmt, Stmt::StmtClass targetClass);
-    static bool parentKindIsSame(ASTContext *Ctx, const Stmt* stmt, const ASTNodeKind& kind);
-    //若只有一个父亲，填充 父亲、父亲语句类型，返回true。否则 不填充，返回false。 Parent断言 正确与否 决定 此方法能不能被通常地使用。
-    static bool only1ParentNodeKind(CompilerInstance& CI, ASTContext& astContext, const Stmt* stmt , DynTypedNode& parent0, ASTNodeKind& parent0NK );
-    /**
-     * 在声明语句 中 声明的变量个数
-     * 比如 :
-     * 输入 "int i;",  返回1
-     * 输入 "float sum,x=0,y;", 返回3
-     * 输入 非变量声明语句,  返回0
-     * @param stmt
-     * @return
-     */
+
+  /**
+   * 在声明语句 中 声明的变量个数
+   * 比如 :
+   * 输入 "int i;",  返回1
+   * 输入 "float sum,x=0,y;", 返回3
+   * 输入 非变量声明语句,  返回0
+   * @param stmt
+   * @return
+   */
     static int varCntInVarDecl(DeclStmt* stmt);
     static void insertCommentBeforeLoc(StringRef commentText,SourceLocation Loc,   const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult);
     static void insertIncludeToFileStart(StringRef includeStmtText,FileID fileId, SourceManager &SM, const std::shared_ptr<Rewriter> rewriter_ptr,bool& insertResult);
