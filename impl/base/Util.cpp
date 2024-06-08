@@ -28,7 +28,7 @@
 #include "base/UtilDiagnostics.h"
 #include "base/UtilSubStmt.h"
 #include "base/UtilConvertNodeType.h"
-#include "UtilNextToken.h"
+#include "base/UtilNextToken.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
