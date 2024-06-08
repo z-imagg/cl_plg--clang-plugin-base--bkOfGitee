@@ -644,28 +644,12 @@ std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceM
 
   return textVec;
 }
-/**
- * 获取 给定 位置范围 的源码文本
- * @param sourceRange
- * @param sourceManager
- * @param langOptions
- * @return
- */
-std::string Util::getSourceTextBySourceRange(SourceRange sourceRange, SourceManager & sourceManager, const LangOptions & langOptions){
-  //ref:  https://stackoverflow.com/questions/40596195/pretty-print-statement-to-string-in-clang/40599057#40599057
-//  SourceRange caseKSrcRange=S->getSourceRange();
-  CharSourceRange charSourceRange=CharSourceRange::getCharRange(sourceRange);
-  llvm::StringRef strRefSourceText=Lexer::getSourceText(charSourceRange, sourceManager, langOptions);
-
-  std::string strSourceText=strRefSourceText.str();
-  return strSourceText;
-}
 
 /**
  * 获取语句所属源文件路径
  */
 void Util::getSourceFilePathOfStmt(const Stmt *S, const SourceManager &SM,StringRef& fn) {
   SourceLocation Loc = S->getBeginLoc();
-  Util::getSourceFilePathAtLoc(Loc,SM,fn);
+  UtilSrcRange::getSourceFilePathAtLoc(Loc,SM,fn);
 }
 
