@@ -37,6 +37,7 @@
 #include "base/UtilStr.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilVarDecl.h"
+#include "base/UtilMacro.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -75,14 +76,6 @@ void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt 
   }
 }
 //endregion
-
-bool Util::LocIsInMacro(SourceLocation Loc, SourceManager& SM){
-  bool isInMacro=
-          SM.isAtStartOfImmediateMacroExpansion(Loc) || SM.isAtEndOfImmediateMacroExpansion(Loc) ||
-          SM.isInSystemMacro(Loc) || SM.isMacroBodyExpansion(Loc) || SM.isMacroArgExpansion(Loc)
-  ;
-  return isInMacro;
-}
 
 //是否 独立且容器 语句
 bool Util::isAloneContainerStmt(const Stmt *stmt){
