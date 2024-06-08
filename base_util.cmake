@@ -24,6 +24,7 @@ set(base_util__SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilDiagnostics.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilSubStmt.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilConvertNodeType.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilNextToken.cpp"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/ASTContextUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/StrUtil.cpp"
