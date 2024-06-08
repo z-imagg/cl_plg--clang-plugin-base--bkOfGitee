@@ -77,9 +77,6 @@ public:
      */
     static bool isAloneContainerStmt(const Stmt *stmt)  ;
 
-  //DiagnosticsEngine错误个数
-    static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
-
   static void emptyStrIfNullStr(const char* &cstr);
     /** c++11 手工实现 string_format
      * 模板，必须要放在头文件中.

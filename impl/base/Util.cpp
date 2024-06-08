@@ -25,6 +25,7 @@
 #include "base/UtilFuncIsX.h"
 #include "base/UtilInsertInclude.h"
 #include "base/UtilFuncDecl.h"
+#include "base/UtilDiagnostics.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -160,18 +161,6 @@ bool Util::isAloneContainerStmt(const Stmt *stmt){
   bool IsSwitchStmt=isa<SwitchStmt>(*stmt);
   bool isContainerStmt = IsCompoundStmt || IsIfStmt || IsForStmt || IsCXXForRangeStmt || IsWhileStmt || IsDoStmt || IsSwitchStmt;
   return isContainerStmt;
-}
-
-//DiagnosticsEngine错误个数
-std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
-//      DiagnosticsEngine &Diags = CI.getDiagnostics();
-  int error=Diags.getNumErrors();
-  bool hasErrorOccurred = Diags.hasErrorOccurred();
-  bool hasFatalErrorOccurred = Diags.hasFatalErrorOccurred();
-  bool hasUncompilableErrorOccurred = Diags.hasUncompilableErrorOccurred();
-  bool hasUnrecoverableErrorOccurred = Diags.hasUnrecoverableErrorOccurred();
-  std::string msg(fmt::format("DiagnosticsEngine错误个数: error:{},hasErrorOccurred:{},hasFatalErrorOccurred:{},hasUncompilableErrorOccurred:{},hasUnrecoverableErrorOccurred:{}",error,hasErrorOccurred,hasFatalErrorOccurred,hasUncompilableErrorOccurred,hasUnrecoverableErrorOccurred));
-  return msg;
 }
 
 void Util::emptyStrIfNullStr(const char* &cstr){
