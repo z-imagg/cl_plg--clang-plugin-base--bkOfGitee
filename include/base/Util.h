@@ -94,19 +94,13 @@ public:
 
 
   static bool isReturnStmtClass(Stmt *stmt );
-    /**计算语句列表中各语句是否为FallThrough，附带返回倒数第二条语句
-     *
-     * @param subStmtLs
-     * @param negativeSecond
-     * @return
-     */
-    static std::vector<bool>  subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs ,Stmt* &negativeSecond ,SourceManager& SM, LangOptions& langOptions);
-    /**语句是否有该属性
-     *
-     * @param stmt
-     * @param attrKind
-     * @return
-     */
+
+  /**语句是否有该属性
+   *
+   * @param stmt
+   * @param attrKind
+   * @return
+   */
     static bool hasAttrKind(Stmt *stmt, attr::Kind attrKind);
 
   /**
