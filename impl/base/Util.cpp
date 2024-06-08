@@ -31,6 +31,7 @@
 #include "base/UtilNextToken.h"
 #include "base/UtilSrcRangeRelation.h"
 #include "base/UtilRetStmt.h"
+#include "UtilAttrKind.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -139,38 +140,6 @@ std::string Util::pointerToString(void* ptr) {
 void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
   RewriteBuffer &editBuffer = rewriter_ptr->getEditBuffer(mainFileId);
   UtilRewriteBuffer::saveRewriteBuffer0(&editBuffer,filePath,"saveEditBuffer:");
-}
-
-
-bool Util::hasAttrKind(Stmt *stmt, attr::Kind attrKind){
-  if(!stmt){
-    return false;
-  }
-//  clang::AttributedStmt* attributedStmt = clang::dyn_cast<clang::AttributedStmt>(stmt);
-
-  clang::AttributedStmt* attributedStmt = clang::dyn_cast_or_null<clang::AttributedStmt>(stmt);
-
-//  AttributedStmt* attributedStmt= static_cast<AttributedStmt*> (stmt);//不能这样转，static_cast会把一个不是AttributedStmt的东西强硬转为AttributedStmt, 比如把一段不可写的代码区域转为Attr对象, 显然导致Segmentation fault而崩溃退出.
-
-  if(attributedStmt){
-    const ArrayRef<const Attr *> &attrS = attributedStmt->getAttrs();
-    std::vector<const Attr *> attrVec(attrS.begin(), attrS.end());//方便调试看数组内容
-    for(const Attr * attrJ:attrVec){
-      if(!attrJ){
-        continue;
-      }
-      attr::Kind attrJKind = attrJ->getKind();
-      const std::string &normalizedFullName = attrJ->getNormalizedFullName();
-//      std::cout << "AttributedStmt:" << attrJKind << "," << normalizedFullName << std::endl;
-//    AttributedStmt:24,gnu::fallthrough
-      if(attrKind==attrJKind){
-        return true;
-      }
-    }//for结束
-
-  }//if结束
-
-  return false;
 }
 
 

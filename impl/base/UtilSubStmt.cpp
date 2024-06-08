@@ -31,6 +31,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilSubStmt.h"
+#include "UtilAttrKind.h"
 
 std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs , Stmt* &negativeSecond, SourceManager& SM, LangOptions& langOptions) {
   std::vector<Stmt*> subStmtVec(subStmtLs.begin(), subStmtLs.end());
