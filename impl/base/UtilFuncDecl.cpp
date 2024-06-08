@@ -5,9 +5,9 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilFuncDecl.h"
-#include "UtilInsertInclude.h"
-#include "UtilFuncIsX.h"
+#include "base/UtilFuncDecl.h"
+#include "base/UtilInsertInclude.h"
+#include "base/UtilFuncIsX.h"
 #include "base/UtilEnvVar.h"
 #include "base/UtilFile.h"
 #include "base/UtilStmtEndSemicolon.h"

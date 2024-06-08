@@ -24,7 +24,7 @@
 #include "base/UtilEnvVar.h"
 #include "base/UtilFuncIsX.h"
 #include "base/UtilInsertInclude.h"
-#include "UtilFuncDecl.h"
+#include "base/UtilFuncDecl.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
