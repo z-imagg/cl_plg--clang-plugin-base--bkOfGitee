@@ -122,7 +122,6 @@ public:
    * @return
    */
     static int varCntInVarDecl(DeclStmt* stmt);
-    static void insertCommentBeforeLoc(StringRef commentText,SourceLocation Loc,   const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult);
 
   static FunctionDecl* findFuncDecByName(ASTContext *Ctx,std::string functionName);
     static std::vector<std::string> stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions);

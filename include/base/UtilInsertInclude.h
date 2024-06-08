@@ -25,6 +25,8 @@ public:
   static void insertIncludeToFileStartByLoc(StringRef includeStmtText,SourceLocation Loc, SourceManager &SM, const std::shared_ptr<Rewriter> rewriter_ptr);
 
   static void insertIncludeToFileStart(StringRef includeStmtText, FileID fileId, SourceManager &SM, const std::shared_ptr<Rewriter> rewriter_ptr, bool& insertResult);
+
+  static void insertCommentBeforeLoc(StringRef commentText, SourceLocation Loc, const std::shared_ptr<Rewriter> mRewriter_ptr, bool& insertResult);
 };
 
 

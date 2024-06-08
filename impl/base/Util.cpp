@@ -23,6 +23,7 @@
 #include "base/UtilFile.h"
 #include "base/UtilEnvVar.h"
 #include "base/UtilFuncIsX.h"
+#include "base/UtilInsertInclude.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -279,11 +280,6 @@ int Util::varCntInVarDecl(DeclStmt* declStmt) {
 //  }
 }
 
-
-void Util::insertCommentBeforeLoc(StringRef commentText,SourceLocation Loc , const std::shared_ptr<Rewriter> mRewriter_ptr,bool& insertResult)   {
-  insertResult=mRewriter_ptr->InsertTextBefore(Loc, commentText);
-  return  ;
-}
 
 FunctionDecl* Util::findFuncDecByName(ASTContext *Ctx,std::string functionName){
 //    std::string functionName = "calc";

@@ -1,5 +1,18 @@
 // Created by z on 2024/6/8.
 
+#include "base/UtilInsertInclude.h"
+#include "base/UtilFuncIsX.h"
+#include "base/UtilEnvVar.h"
+#include "base/UtilFile.h"
+#include "base/UtilStmtEndSemicolon.h"
+#include "base/UtilIsSysSrcFileOrMe.h"
+#include "base/UtilLocId.h"
+#include "base/UtilMainFile.h"
+#include "base/UtilLineNum.h"
+#include "base/UtilCompoundStmt.h"
+#include "base/UtilRewriteBuffer.h"
+#include "base/UtilFuncIsX.h"
+#include "base/UtilEndStmtOf.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -41,5 +54,10 @@ void UtilInsertInclude::insertIncludeToFileStart(StringRef includeStmtText, File
 
 
   insertResult=mRewriter_ptr->InsertText(startLoc, includeStmtText, true, true);
+  return  ;
+}
+
+void UtilInsertInclude::insertCommentBeforeLoc(StringRef commentText, SourceLocation Loc , const std::shared_ptr<Rewriter> mRewriter_ptr, bool& insertResult)   {
+  insertResult=mRewriter_ptr->InsertTextBefore(Loc, commentText);
   return  ;
 }
