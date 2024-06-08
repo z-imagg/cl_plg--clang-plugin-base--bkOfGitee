@@ -18,7 +18,7 @@
 #include "base/UtilLineNum.h"
 #include "base/UtilMainFile.h"
 #include "base/UtilLocId.h"
-#include "UtilIsSysSrcFileOrMe.h"
+#include "base/UtilIsSysSrcFileOrMe.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>

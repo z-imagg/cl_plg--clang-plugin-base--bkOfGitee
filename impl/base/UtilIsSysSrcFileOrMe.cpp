@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilIsSysSrcFileOrMe.h"
+#include "base/UtilIsSysSrcFileOrMe.h"
 #include "base/UtilLocId.h"
 #include "base/UtilMainFile.h"
 #include "base/UtilLineNum.h"
