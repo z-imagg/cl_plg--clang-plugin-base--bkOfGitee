@@ -5,6 +5,7 @@
 set(base_util__SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/Util.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilParentKind.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilGetSrcFilePathByLoc.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/ASTContextUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/StrUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/LocId.cpp"
