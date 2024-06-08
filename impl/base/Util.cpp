@@ -29,6 +29,7 @@
 #include "base/UtilSubStmt.h"
 #include "base/UtilConvertNodeType.h"
 #include "base/UtilNextToken.h"
+#include "UtilSrcRangeRelation.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -104,33 +105,6 @@ void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt 
 }
 //endregion
 
-bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
-
-
-
-  SourceLocation aB = A.getBegin();
-  int aBL,aBC;
-  UtilLineNum::extractLineAndColumn(SM,aB,aBL,aBC);
-  SourceLocation aE = A.getEnd();
-  int aEL,aEC;
-  UtilLineNum::extractLineAndColumn(SM,aE,aEL,aEC);
-
-  SourceLocation xB = X.getBegin();
-  int xBL,xBC;
-  UtilLineNum::extractLineAndColumn(SM,xB,xBL,xBC);
-  SourceLocation xE = X.getEnd();
-  int xEL,xEC;
-  UtilLineNum::extractLineAndColumn(SM,xE,xEL,xEC);
-
-  bool _fullContains=
-  (aBL < xBL || (aBL == xBL && aBC <= xBC) )    &&  //A开头位置行号 小于 x开头位置行号 , 行号相等时 列号同理
-  (aEL > xEL || (aEL == xEL && aEC >= xEC) )  //且    A末尾位置行号 大于 x末尾位置行号 , 行号相等时 列号同理
-  ;                                           //即 表示 A范围 包含了 B范围
-
-  //由此可见 范围A 和 范围X 等同时，此方法也返回true
-
-  return _fullContains;
-}
 bool Util::LocIsInMacro(SourceLocation Loc, SourceManager& SM){
   bool isInMacro=
           SM.isAtStartOfImmediateMacroExpansion(Loc) || SM.isAtEndOfImmediateMacroExpansion(Loc) ||

@@ -36,11 +36,7 @@ public:
     //开始位置、结束位置、插入者 转为 人类可读字符注释文本
     static void BE_Loc_HumanText(SourceManager& SM,const SourceLocation beginLoc,const SourceLocation endLoc,const std::string whoInserted,std::string& humanTextComment);
 
-   //父亲节点们 转为 指定类型 的 节点列表, 注意模板方法只能放在头文件中.
-//位置范围A 是否 包含 位置范围B ， 相等也算包含。
-    // 由于SourceRange::fullyContains的结果是错误的，因此用自制同名方法替代
-    static bool fullContains(SourceManager& SM, SourceRange A, SourceRange B);
-    //给定位置是否在宏中
+  //给定位置是否在宏中
     static bool LocIsInMacro(SourceLocation Loc, SourceManager& SM);
 
   /**是否 独立且容器 语句
