@@ -33,8 +33,6 @@ using namespace clang;
 
 class Util {
 public:
-    //开始位置、结束位置、插入者 转为 人类可读字符注释文本
-    static void BE_Loc_HumanText(SourceManager& SM,const SourceLocation beginLoc,const SourceLocation endLoc,const std::string whoInserted,std::string& humanTextComment);
 
   //给定位置是否在宏中
     static bool LocIsInMacro(SourceLocation Loc, SourceManager& SM);

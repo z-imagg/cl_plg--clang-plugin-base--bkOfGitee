@@ -35,6 +35,7 @@
 #include "base/UtilStmtLs.h"
 #include "base/UtilEditBuffer.h"
 #include "base/UtilStr.h"
+#include "base/UtilGetSrcTxtBySrcRange.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -46,42 +47,6 @@
 using namespace llvm;
 using namespace clang;
 
-
-//开始位置、结束位置、插入者 转为 人类可读字符注释文本
-void Util::BE_Loc_HumanText(SourceManager& SM, const SourceLocation beginLoc, const SourceLocation endLoc, const std::string whoInserted,std::string& humanTextComment){
-
-  const PresumedLoc &BLocPr = SM.getPresumedLoc(beginLoc);
-  std::string BLocPr_str = fmt::format(
-    "valid:{},fileID:{},{}:{}:{}",
-    BLocPr.isValid(),
-    BLocPr.getFileID().getHashValue(),
-    BLocPr.getFilename(),
-    BLocPr.getLine(),
-    BLocPr.getColumn()
-  );
-
-  const PresumedLoc &ELocPr = SM.getPresumedLoc(endLoc);
-
-  //若果B、E 文件名相同，则省略E文件名，以节省占地长度，增加人类可阅读性。
-  std::string BLocPrFN = BLocPr.getFilename();
-  std::string ELocPrFN = ELocPr.getFilename();
-  if (ELocPrFN==BLocPrFN){
-    ELocPrFN="同始";
-  }
-
-  std::string ELocPr_str = fmt::format(
-      "valid:{},fileID:{},{}:{}:{}",
-      ELocPr.isValid(),
-      ELocPr.getFileID().getHashValue(),
-      ELocPrFN,
-      ELocPr.getLine(),
-      ELocPr.getColumn()
-  );
-
-
-  humanTextComment=fmt::format("/*{}，始【{}】，终【{}】*/", whoInserted, BLocPr_str, ELocPr_str);
-
-}
 
 //region 函数Util::collectParentS 的使用例子.
 void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt *stmt) {

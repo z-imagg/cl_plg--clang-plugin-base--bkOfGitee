@@ -25,6 +25,9 @@ public:
   static std::string getSourceTextBySourceRange(SourceRange sourceRange, SourceManager & sourceManager, const LangOptions & langOptions);
 
   static std::tuple<std::string,std::string>  get_FileAndRange_SourceText(const SourceRange &sourceRange, CompilerInstance& CI);
+
+//开始位置、结束位置、插入者 转为 人类可读字符注释文本
+static void BE_Loc_HumanText(SourceManager& SM,const SourceLocation beginLoc,const SourceLocation endLoc,const std::string whoInserted,std::string& humanTextComment);
 };
 
 

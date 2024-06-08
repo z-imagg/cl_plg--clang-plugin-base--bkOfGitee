@@ -1,5 +1,30 @@
 // Created by z on 2024/6/8.
 
+#include "base/UtilGetSrcTxtBySrcRange.h"
+#include "base/UtilStr.h"
+#include "base/UtilEditBuffer.h"
+#include "base/UtilStmtLs.h"
+#include "base/UtilAttrKind.h"
+#include "base/UtilRetStmt.h"
+#include "base/UtilSrcRangeRelation.h"
+#include "base/UtilNextToken.h"
+#include "base/UtilConvertNodeType.h"
+#include "base/UtilSubStmt.h"
+#include "base/UtilDiagnostics.h"
+#include "base/UtilFuncDecl.h"
+#include "base/UtilEnvVar.h"
+#include "base/UtilFile.h"
+#include "base/UtilStmtEndSemicolon.h"
+#include "base/UtilIsSysSrcFileOrMe.h"
+#include "base/UtilLocId.h"
+#include "base/UtilMainFile.h"
+#include "base/UtilLineNum.h"
+#include "base/UtilCompoundStmt.h"
+#include "base/UtilRewriteBuffer.h"
+#include "base/UtilFuncIsX.h"
+#include "base/UtilEndStmtOf.h"
+#include "base/UtilInsertInclude.h"
+#include "base/UtilPrintAstNode.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -49,4 +74,40 @@ std::tuple<std::string,std::string>  UtilGetSrcTxtBySrcRange::get_FileAndRange_S
   std::string sourceText = UtilGetSrcTxtBySrcRange::getSourceTextBySourceRange(sourceRange, SM, langOpts);
   return std::tuple<std::string,std::string>(fileAndRange,sourceText);
   //}
+}
+
+//开始位置、结束位置、插入者 转为 人类可读字符注释文本
+void UtilGetSrcTxtBySrcRange::BE_Loc_HumanText(SourceManager& SM, const SourceLocation beginLoc, const SourceLocation endLoc, const std::string whoInserted, std::string& humanTextComment){
+
+  const PresumedLoc &BLocPr = SM.getPresumedLoc(beginLoc);
+  std::string BLocPr_str = fmt::format(
+    "valid:{},fileID:{},{}:{}:{}",
+    BLocPr.isValid(),
+    BLocPr.getFileID().getHashValue(),
+    BLocPr.getFilename(),
+    BLocPr.getLine(),
+    BLocPr.getColumn()
+  );
+
+  const PresumedLoc &ELocPr = SM.getPresumedLoc(endLoc);
+
+  //若果B、E 文件名相同，则省略E文件名，以节省占地长度，增加人类可阅读性。
+  std::string BLocPrFN = BLocPr.getFilename();
+  std::string ELocPrFN = ELocPr.getFilename();
+  if (ELocPrFN==BLocPrFN){
+    ELocPrFN="同始";
+  }
+
+  std::string ELocPr_str = fmt::format(
+      "valid:{},fileID:{},{}:{}:{}",
+      ELocPr.isValid(),
+      ELocPr.getFileID().getHashValue(),
+      ELocPrFN,
+      ELocPr.getLine(),
+      ELocPr.getColumn()
+  );
+
+
+  humanTextComment=fmt::format("/*{}，始【{}】，终【{}】*/", whoInserted, BLocPr_str, ELocPr_str);
+
 }
