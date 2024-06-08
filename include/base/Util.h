@@ -131,13 +131,10 @@ public:
     static void copySrcFile(std::string srcFilePath,std::string destRootDir="/tmp/");
     static bool LocFileIDEqMainFileID(SourceManager& SM, SourceLocation Loc);
     static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
-    static std::string rewriteBufferToString(const RewriteBuffer &buffer);
-    static void
-    saveRewriteBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
-    static bool envVarEq(std::string varName, std::string varValueExpect);
 
-    static void saveRewriteBuffer0(const RewriteBuffer *pRewriteBuffer, std::string filePath, std::string title);
-    static bool isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context);
+  static bool envVarEq(std::string varName, std::string varValueExpect);
+
+  static bool isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context);
     static FunctionDecl *getContainingFunction(CompoundStmt *stmt, ASTContext &context);
 
 
