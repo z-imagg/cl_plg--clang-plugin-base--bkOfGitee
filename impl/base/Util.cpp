@@ -21,7 +21,7 @@
 #include "base/UtilIsSysSrcFileOrMe.h"
 #include "base/UtilStmtEndSemicolon.h"
 #include "base/UtilFile.h"
-#include "UtilEnvVar.h"
+#include "base/UtilEnvVar.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
