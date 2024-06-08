@@ -34,7 +34,7 @@
 #include "base/UtilAttrKind.h"
 #include "base/UtilStmtLs.h"
 #include "base/UtilEditBuffer.h"
-#include "UtilStr.h"
+#include "base/UtilStr.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
