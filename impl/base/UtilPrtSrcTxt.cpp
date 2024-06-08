@@ -152,7 +152,7 @@ void  UtilPrtSrcTxt::printSourceRangeSimple(
   FileID fileId = SM.getFileID(sourceRange.getBegin() );
   FileID mainFileId = SM.getMainFileID();
 
-  const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
+  const std::tuple<std::string, std::string> & frst = UtilSrcRange::get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
   std::string sourceText=std::get<1>(frst);
 

@@ -1,6 +1,6 @@
 
-#ifndef Util_H
-#define Util_H
+#ifndef UtilPrtSrcTxt_H
+#define UtilPrtSrcTxt_H
 
 
 #include <string>
@@ -56,4 +56,4 @@ public:
 };
 
 
-#endif //Util_H
+#endif //UtilPrtSrcTxt_H

@@ -1,6 +1,6 @@
 
-#ifndef Util_H
-#define Util_H
+#ifndef UtilSrcRange_H
+#define UtilSrcRange_H
 
 
 #include <string>
@@ -37,4 +37,4 @@ public:
 };
 
 
-#endif //Util_H
+#endif //UtilSrcRange_H
