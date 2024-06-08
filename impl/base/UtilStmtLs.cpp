@@ -5,6 +5,12 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
+#include "base/UtilStmtLs.h"
+#include "base/UtilAttrKind.h"
+#include "base/UtilRetStmt.h"
+#include "base/UtilSrcRangeRelation.h"
+#include "base/UtilNextToken.h"
+#include "base/UtilConvertNodeType.h"
 #include "base/UtilSubStmt.h"
 #include "base/UtilDiagnostics.h"
 #include "base/UtilFuncDecl.h"
@@ -30,26 +36,14 @@
 #include <clang/Frontend/CompilerInstance.h>
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
-#include "base/UtilSubStmt.h"
-#include "base/UtilAttrKind.h"
 #include "base/UtilStmtLs.h"
 
-std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs , Stmt* &negativeSecond, SourceManager& SM, LangOptions& langOptions) {
-  std::vector<Stmt*> subStmtVec(subStmtLs.begin(), subStmtLs.end());
-  unsigned long subStmtCnt = subStmtVec.size();
-  const std::vector<std::string> &textVec = UtilStmtLs::stmtLs2TextLs(subStmtVec, SM, langOptions);
-  if(subStmtCnt>=2){
-    //倒数第二条语句
-    negativeSecond=subStmtVec[subStmtCnt-2];
-  }
+std::vector<std::string> UtilStmtLs::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions){
+  std::vector<std::string> textVec;
 
-  //subStmtVec中的stmtJ是否为'[[gnu::fallthrough]];'
-  std::vector<bool> subStmtIsFallThroughVec(subStmtCnt,false);
+  std::transform(stmtVec.begin(), stmtVec.end(), std::back_inserter(textVec), [&SM,&langOptions](Stmt* stmt) {
+      return UtilGetSrcTxtBySrcRange::getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
+  });
 
-  for (std::size_t j = 0; j < subStmtCnt; ++j) {
-    Stmt* stmtJ = subStmtVec[j];
-    subStmtIsFallThroughVec[j]=UtilAttrKind::hasAttrKind(stmtJ, attr::FallThrough);
-      //如果本行语句是'[[gnu::fallthrough]];'  , 那么下一行前不要插入时钟语句, 否则语法错误.
-  }
-  return subStmtIsFallThroughVec;
+  return textVec;
 }

@@ -78,8 +78,6 @@ public:
    */
     static int varCntInVarDecl(DeclStmt* stmt);
 
-  static std::vector<std::string> stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions);
-
 
 };
 

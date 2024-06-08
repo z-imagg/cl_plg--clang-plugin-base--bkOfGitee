@@ -32,6 +32,7 @@
 #include "base/UtilSrcRangeRelation.h"
 #include "base/UtilRetStmt.h"
 #include "base/UtilAttrKind.h"
+#include "base/UtilStmtLs.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -172,14 +173,4 @@ int Util::varCntInVarDecl(DeclStmt* declStmt) {
 //  }
 }
 
-
-std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions){
-  std::vector<std::string> textVec;
-
-  std::transform(stmtVec.begin(), stmtVec.end(), std::back_inserter(textVec), [&SM,&langOptions](Stmt* stmt) {
-      return UtilGetSrcTxtBySrcRange::getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
-  });
-
-  return textVec;
-}
 
