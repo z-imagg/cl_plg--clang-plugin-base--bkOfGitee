@@ -32,6 +32,7 @@
 #include "base/Util.h"
 #include "base/UtilSubStmt.h"
 #include "base/UtilAttrKind.h"
+#include "UtilStmtLs.h"
 
 std::vector<bool>  UtilSubStmt::subStmtIsFallThroughVec(const Stmt::child_range &subStmtLs , Stmt* &negativeSecond, SourceManager& SM, LangOptions& langOptions) {
   std::vector<Stmt*> subStmtVec(subStmtLs.begin(), subStmtLs.end());
