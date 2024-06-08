@@ -64,8 +64,6 @@ public:
 
     static std::string pointerToString(void* ptr);
 
-  static void saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath);
-
 
   /**
    * 在声明语句 中 声明的变量个数
