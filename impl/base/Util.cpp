@@ -97,17 +97,17 @@ bool Util::fullContains(SourceManager& SM, SourceRange A, SourceRange X){
 
   SourceLocation aB = A.getBegin();
   int aBL,aBC;
-  Util::extractLineAndColumn(SM,aB,aBL,aBC);
+  UtilLineNum::extractLineAndColumn(SM,aB,aBL,aBC);
   SourceLocation aE = A.getEnd();
   int aEL,aEC;
-  Util::extractLineAndColumn(SM,aE,aEL,aEC);
+  UtilLineNum::extractLineAndColumn(SM,aE,aEL,aEC);
 
   SourceLocation xB = X.getBegin();
   int xBL,xBC;
-  Util::extractLineAndColumn(SM,xB,xBL,xBC);
+  UtilLineNum::extractLineAndColumn(SM,xB,xBL,xBC);
   SourceLocation xE = X.getEnd();
   int xEL,xEC;
-  Util::extractLineAndColumn(SM,xE,xEL,xEC);
+  UtilLineNum::extractLineAndColumn(SM,xE,xEL,xEC);
 
   bool _fullContains=
   (aBL < xBL || (aBL == xBL && aBC <= xBC) )    &&  //A开头位置行号 小于 x开头位置行号 , 行号相等时 列号同理

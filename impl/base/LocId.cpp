@@ -13,7 +13,7 @@ using namespace clang;
     LocId LocId::buildFor(std::string fp, const SourceLocation srcLoc, const clang::SourceManager& SM){
       int line;
       int column;
-      Util::extractLineAndColumn(SM, srcLoc, line, column);
+      UtilLineNum::extractLineAndColumn(SM, srcLoc, line, column);
       return LocId(fp ,line,column);
     }
 
@@ -35,9 +35,9 @@ LocId:: LocId( std::string filePath, int line, int column)
       SourceLocation E=range.getEnd();
 
       int bL=-1,bC=-1;
-      Util::extractLineAndColumn(SM,B,bL,bC);
+      UtilLineNum::extractLineAndColumn(SM,B,bL,bC);
       int eL=-1,eC=-1;
-      Util::extractLineAndColumn(SM,E,eL,eC);
+      UtilLineNum::extractLineAndColumn(SM,E,eL,eC);
 
       bool in_range=
           (bL<line || (bL==line && bC<column))
