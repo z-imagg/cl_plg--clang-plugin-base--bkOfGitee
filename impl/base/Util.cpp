@@ -27,7 +27,7 @@
 #include "base/UtilFuncDecl.h"
 #include "base/UtilDiagnostics.h"
 #include "base/UtilSubStmt.h"
-#include "UtilConvertNodeType.h"
+#include "base/UtilConvertNodeType.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -80,7 +80,7 @@ void Util::BE_Loc_HumanText(SourceManager& SM, const SourceLocation beginLoc, co
 void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt *stmt) {
   std::vector<std::tuple<ASTNodeKind,SourceRange,const Stmt*>>  parentVec;
   const DynTypedNodeList & parents = ctx.getParents(*stmt);
-  Util::collectParentS<Stmt>(parents,parentVec);
+  UtilConvertNodeType::collectParentS<Stmt>(parents,parentVec);
   //返回父亲节点们放在 向量parentVec 中
   size_t parentSize=parentVec.size();
   //共parentSize个父亲节点
