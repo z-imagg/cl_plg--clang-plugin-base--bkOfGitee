@@ -33,6 +33,7 @@ set(base_util__SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilStr.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilVarDecl.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilMacro.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilAloneContainerStmt.cpp"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/ASTContextUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/StrUtil.cpp"

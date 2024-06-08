@@ -38,6 +38,7 @@
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilVarDecl.h"
 #include "base/UtilMacro.h"
+#include "base/UtilAloneContainerStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -76,18 +77,5 @@ void __collectParentS__call_demo(SourceManager& SM, ASTContext &ctx,clang::Stmt 
   }
 }
 //endregion
-
-//是否 独立且容器 语句
-bool Util::isAloneContainerStmt(const Stmt *stmt){
-  bool IsCompoundStmt=isa<CompoundStmt>(*stmt);
-  bool IsIfStmt=isa<IfStmt>(*stmt);
-  bool IsForStmt=isa<ForStmt>(*stmt);
-  bool IsCXXForRangeStmt=isa<CXXForRangeStmt>(*stmt);
-  bool IsWhileStmt=isa<WhileStmt>(*stmt);
-  bool IsDoStmt=isa<DoStmt>(*stmt);
-  bool IsSwitchStmt=isa<SwitchStmt>(*stmt);
-  bool isContainerStmt = IsCompoundStmt || IsIfStmt || IsForStmt || IsCXXForRangeStmt || IsWhileStmt || IsDoStmt || IsSwitchStmt;
-  return isContainerStmt;
-}
 
 
