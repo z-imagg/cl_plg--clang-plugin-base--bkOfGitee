@@ -76,10 +76,8 @@ public:
      * @return
      */
     static bool isAloneContainerStmt(const Stmt *stmt)  ;
-    //获取语句末尾分号位置
-    static SourceLocation getStmtEndSemicolonLocation(const Stmt *S, const SourceManager &SM,bool& endIsSemicolon)  ;
-    
-    //DiagnosticsEngine错误个数
+
+  //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
 
   /** void函数、构造函数 最后一条语句是return吗？
