@@ -142,15 +142,6 @@ public:
      * @return
      */
     static bool hasAttrKind(Stmt *stmt, attr::Kind attrKind);
-    static void extractLineAndColumn(const clang::SourceManager& SM, const clang::SourceLocation& sourceLocation, int& line, int& column);
-    /** 两给定'SourceLocation'的行号是否相同
-     *
-     * @param SM
-     * @param srcLoc1
-     * @param srcLoc2
-     * @return
-     */
-    static bool isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2);
 
   /**
    * 在声明语句 中 声明的变量个数

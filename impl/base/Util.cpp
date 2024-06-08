@@ -15,6 +15,7 @@
 #include "base/UtilFuncIsX.h"
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilCompoundStmt.h"
+#include "UtilLineNum.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -370,21 +371,6 @@ bool Util::hasAttrKind(Stmt *stmt, attr::Kind attrKind){
   }//if结束
 
   return false;
-}
-void Util::extractLineAndColumn(const clang::SourceManager& SM, const clang::SourceLocation& sourceLocation, int& line, int& column) {
-  clang::PresumedLoc presumedLoc = SM.getPresumedLoc(sourceLocation);
-  line = presumedLoc.getLine();
-  column = presumedLoc.getColumn();
-  return;
-}
-
-bool Util::isEqSrcLocLineNum(const clang::SourceManager& SM, const clang::SourceLocation& srcLoc1, const clang::SourceLocation& srcLoc2) {
-  clang::PresumedLoc presumedLoc1 = SM.getPresumedLoc(srcLoc1);
-  clang::PresumedLoc presumedLoc2 = SM.getPresumedLoc(srcLoc2);
-  int line1 = presumedLoc1.getLine();
-  int line2 = presumedLoc2.getLine();
-  bool lineNumEqual=(line1==line2);
-  return lineNumEqual;
 }
 
 
