@@ -21,6 +21,7 @@
 #include "base/UtilIsSysSrcFileOrMe.h"
 #include "base/UtilStmtEndSemicolon.h"
 #include "base/UtilFile.h"
+#include "base/UtilEnvVar.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -194,18 +195,6 @@ void Util::emptyStrIfNullStr(const char* &cstr){
 
 std::string Util::pointerToString(void* ptr) {
   return std::to_string(reinterpret_cast<long long>(ptr));
-}
-
-bool Util::envVarEq(std::string varName, std::string varValueExpect){
-  if(varName.empty()){
-    return false;
-  }
-  const char* varValueReal=std::getenv(varName.c_str());
-  if(varValueReal == NULL){
-    return false;
-  }
-  bool eq= (varValueExpect == varValueReal);
-  return eq;
 }
 
 void Util::saveEditBuffer(const std::shared_ptr<Rewriter> rewriter_ptr, FileID mainFileId, std::string filePath) {
