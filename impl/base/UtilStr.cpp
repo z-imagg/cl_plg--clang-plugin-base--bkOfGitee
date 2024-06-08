@@ -1,5 +1,6 @@
 // Created by z on 2024/6/8.
 
+#include "base/UtilVarDecl.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -43,4 +44,8 @@
 void UtilStr::emptyStrIfNullStr(const char* &cstr){
 //  whoInserted=(whoInserted==NULL?"":whoInserted);
   cstr=(cstr==NULL?"":cstr);
+}
+
+std::string UtilStr::pointerToString(void* ptr) {
+  return std::to_string(reinterpret_cast<long long>(ptr));
 }

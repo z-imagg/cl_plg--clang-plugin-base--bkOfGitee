@@ -97,8 +97,4 @@ bool Util::isAloneContainerStmt(const Stmt *stmt){
   return isContainerStmt;
 }
 
-std::string Util::pointerToString(void* ptr) {
-  return std::to_string(reinterpret_cast<long long>(ptr));
-}
-
 
