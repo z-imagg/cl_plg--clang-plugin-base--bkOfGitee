@@ -30,7 +30,7 @@
 #include "base/UtilConvertNodeType.h"
 #include "base/UtilNextToken.h"
 #include "base/UtilSrcRangeRelation.h"
-#include "UtilRetStmt.h"
+#include "base/UtilRetStmt.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>

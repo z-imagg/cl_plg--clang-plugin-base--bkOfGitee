@@ -29,7 +29,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilFuncIsX.h"
-#include "UtilRetStmt.h"
+#include "base/UtilRetStmt.h"
 
 bool UtilFuncIsX::funcIsDefault(FunctionDecl *funcDecl){
   bool isDefault=funcDecl->isExplicitlyDefaulted() || funcDecl->isDefaulted();
@@ -64,7 +64,7 @@ bool UtilFuncIsX::isVoidFuncOrConstructorThenNoEndReturn(QualType funcReturnType
   if(funcReturnType->isVoidType() || isaCXXConstructorDecl){
     //是void函数 或是 构造函数: 此两者都可以末尾不显示写出return语句
 //    Stmt *endStmtOfFuncBody = funcDesc.endStmtOfFuncBody;
-    bool endStmtIsReturn=Util::isReturnStmtClass(endStmtOfFuncBody);
+    bool endStmtIsReturn=UtilRetStmt::isReturnStmtClass(endStmtOfFuncBody);
     if(!endStmtIsReturn){
       return true;
     }
