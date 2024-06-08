@@ -5,7 +5,7 @@
 #include "clang/AST/RecursiveASTVisitor.h"
 #include <fmt/core.h>
 #include "base/Util.h"
-#include "UtilLineNum.h"
+#include "base/UtilLineNum.h"
 
 using namespace clang;
 

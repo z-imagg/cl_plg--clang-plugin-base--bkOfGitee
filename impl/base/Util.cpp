@@ -15,7 +15,7 @@
 #include "base/UtilFuncIsX.h"
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilCompoundStmt.h"
-#include "UtilLineNum.h"
+#include "base/UtilLineNum.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>

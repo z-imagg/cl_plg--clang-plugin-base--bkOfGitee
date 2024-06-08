@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <clang/AST/ParentMapContext.h>
-#include "UtilLineNum.h"
+#include "base/UtilLineNum.h"
 #include "base/UtilCompoundStmt.h"
 #include "base/UtilRewriteBuffer.h"
 #include "base/UtilFuncIsX.h"
