@@ -36,7 +36,7 @@
 #include "base/UtilEditBuffer.h"
 #include "base/UtilStr.h"
 #include "base/UtilGetSrcTxtBySrcRange.h"
-#include "UtilVarDecl.h"
+#include "base/UtilVarDecl.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
