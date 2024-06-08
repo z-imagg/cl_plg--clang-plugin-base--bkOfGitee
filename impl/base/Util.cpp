@@ -33,7 +33,7 @@
 #include "base/UtilRetStmt.h"
 #include "base/UtilAttrKind.h"
 #include "base/UtilStmtLs.h"
-#include "UtilEditBuffer.h"
+#include "base/UtilEditBuffer.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
