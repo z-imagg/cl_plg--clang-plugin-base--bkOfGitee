@@ -8,6 +8,7 @@
 #include "clang/Frontend/FrontendPluginRegistry.h"
 #include "base/UtilParentKind.h"
 #include "base/UtilGetSrcFilePathByLoc.h"
+#include "base/UtilGetSrcTxtBySrcRange.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -593,44 +594,10 @@ std::vector<std::string> Util::stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceM
   std::vector<std::string> textVec;
 
   std::transform(stmtVec.begin(), stmtVec.end(), std::back_inserter(textVec), [&SM,&langOptions](Stmt* stmt) {
-      return getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
+      return UtilGetSrcTxtBySrcRange::getSourceTextBySourceRange(stmt->getSourceRange(),SM,langOptions); // 这里可以根据需要进行转换操作
   });
 
   return textVec;
-}
-/**
- * 获取 给定 位置范围 的源码文本
- * @param sourceRange
- * @param sourceManager
- * @param langOptions
- * @return
- */
-std::string Util::getSourceTextBySourceRange(SourceRange sourceRange, SourceManager & sourceManager, const LangOptions & langOptions){
-  //ref:  https://stackoverflow.com/questions/40596195/pretty-print-statement-to-string-in-clang/40599057#40599057
-//  SourceRange caseKSrcRange=S->getSourceRange();
-  CharSourceRange charSourceRange=CharSourceRange::getCharRange(sourceRange);
-  llvm::StringRef strRefSourceText=Lexer::getSourceText(charSourceRange, sourceManager, langOptions);
-
-  std::string strSourceText=strRefSourceText.str();
-  return strSourceText;
-}
-
-/**开发用工具 get_FileAndRange_SourceText ： 获得SourceRange的 文件路径、文件中的坐标、源码文本
- *
- * @param sourceRange
- * @param CI
- * @return
- */
-
-std::tuple<std::string,std::string>  Util::get_FileAndRange_SourceText(const SourceRange &sourceRange,CompilerInstance& CI){
-  //{开发用
-  SourceManager &SM = CI.getSourceManager();
-  LangOptions &langOpts = CI.getLangOpts();
-//      const SourceRange &caseKSrcRange = Decl->getSourceRange();
-  std::string fileAndRange = sourceRange.printToString(SM);
-  std::string sourceText = Util::getSourceTextBySourceRange(sourceRange, SM, langOpts);
-  return std::tuple<std::string,std::string>(fileAndRange,sourceText);
-  //}
 }
 
 void Util::printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, const clang::Stmt *stmt,
@@ -723,7 +690,7 @@ void  Util::printSourceRange(int64_t nodeID,
   FileID mainFileId = SM.getMainFileID();
 //  FileID fileId = SM.getFileID(caseKSrcRange.getBegin());
 
-  const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
+  const std::tuple<std::string, std::string> & frst = UtilGetSrcTxtBySrcRange::get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
   std::string sourceText=std::get<1>(frst);
 
@@ -766,7 +733,7 @@ void  Util::printSourceRangeSimple(
   FileID fileId = SM.getFileID(sourceRange.getBegin() );
   FileID mainFileId = SM.getMainFileID();
 
-  const std::tuple<std::string, std::string> & frst = get_FileAndRange_SourceText(sourceRange,CI);
+  const std::tuple<std::string, std::string> & frst = UtilGetSrcTxtBySrcRange::get_FileAndRange_SourceText(sourceRange,CI);
   std::string fileAndRange=std::get<0>(frst);
   std::string sourceText=std::get<1>(frst);
 

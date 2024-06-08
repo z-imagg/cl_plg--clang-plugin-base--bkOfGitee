@@ -208,12 +208,9 @@ public:
 
   static FunctionDecl* findFuncDecByName(ASTContext *Ctx,std::string functionName);
     static std::vector<std::string> stmtLs2TextLs(std::vector<Stmt*> stmtVec, SourceManager & SM, const LangOptions & langOptions);
-    static std::string getSourceTextBySourceRange(SourceRange sourceRange, SourceManager & sourceManager, const LangOptions & langOptions);
 
 
-
-    static std::tuple<std::string,std::string>  get_FileAndRange_SourceText(const SourceRange &sourceRange,CompilerInstance& CI);
-    static void printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, const  clang::Stmt *stmt,
+  static void printStmt(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, const  clang::Stmt *stmt,
                           bool printSourceText);
     static void printExpr(ASTContext &Ctx, CompilerInstance &CI, std::string tag, std::string title, clang::Expr *expr,
                           bool printSourceText = false);
