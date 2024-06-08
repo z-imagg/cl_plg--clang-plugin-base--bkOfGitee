@@ -17,6 +17,7 @@
 #include "base/UtilCompoundStmt.h"
 #include "base/UtilLineNum.h"
 #include "base/UtilMainFile.h"
+#include "base/UtilLocId.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -195,14 +196,6 @@ std::string Util::strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags){
   bool hasUnrecoverableErrorOccurred = Diags.hasUnrecoverableErrorOccurred();
   std::string msg(fmt::format("DiagnosticsEngine错误个数: error:{},hasErrorOccurred:{},hasFatalErrorOccurred:{},hasUncompilableErrorOccurred:{},hasUnrecoverableErrorOccurred:{}",error,hasErrorOccurred,hasFatalErrorOccurred,hasUncompilableErrorOccurred,hasUnrecoverableErrorOccurred));
   return msg;
-}
-
-bool Util::LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
-  return !Util::LocIdSetNotContains(_set,locId);
-}
-bool Util::LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId){
-  bool contains=(_set.count(locId) <= 0);
-  return contains;
 }
 
 /** void函数、构造函数 最后一条语句是return吗？

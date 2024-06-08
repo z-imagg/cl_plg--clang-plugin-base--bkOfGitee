@@ -82,9 +82,6 @@ public:
     //DiagnosticsEngine错误个数
     static std::string strDiagnosticsEngineHasErr(DiagnosticsEngine &Diags);
 
-  static bool LocIdSetContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
-    static bool LocIdSetNotContains(std::unordered_set<LocId,LocId>& _set, LocId locId);
-
   /** void函数、构造函数 最后一条语句是return吗？
    * @param funcDesc
    * @return
