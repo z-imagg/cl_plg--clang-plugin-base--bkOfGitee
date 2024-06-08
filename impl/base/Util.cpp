@@ -18,6 +18,7 @@
 #include "base/UtilLineNum.h"
 #include "base/UtilMainFile.h"
 #include "base/UtilLocId.h"
+#include "UtilIsSysSrcFileOrMe.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
@@ -222,24 +223,6 @@ void Util::emptyStrIfNullStr(const char* &cstr){
 
 std::string Util::pointerToString(void* ptr) {
   return std::to_string(reinterpret_cast<long long>(ptr));
-}
-bool Util::isSysSrcFile(StringRef fn) {
-  bool startWithUsr=fn.startswith("/usr/");
-  bool isLLVM01=fn.startswith("/app/llvm_release_home/clang+llvm");
-  bool isLLVM02=fn.startswith("/app/llvm_release_home/clang+llvm");
-  bool isInternal=(startWithUsr||isLLVM01||isLLVM02);
-  return isInternal;
-}
-bool Util::isRuntimeSrcFile(StringRef fn,std::string runtimeBaseName) {
-  std::string headerF=runtimeBaseName.append(".h");
-  std::string cF=runtimeBaseName.append(".c");
-  std::string cppF=runtimeBaseName.append(".cpp");
-  bool isTick =
-          fn.endswith(headerF)
-          || fn.endswith(cF)
-          || fn.endswith(cppF)
-  ;
-  return isTick;
 }
 
 void Util::copySrcFile(std::string filePath,std::string destRootDir){
