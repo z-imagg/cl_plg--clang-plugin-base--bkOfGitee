@@ -11,7 +11,7 @@
 #include "base/UtilGetSrcTxtBySrcRange.h"
 #include "base/UtilPrintAstNode.h"
 #include "base/UtilInsertInclude.h"
-#include "UtilEndStmtOf.h"
+#include "base/UtilEndStmtOf.h"
 #include <clang/AST/ParentMapContext.h>
 
 #include <string>
