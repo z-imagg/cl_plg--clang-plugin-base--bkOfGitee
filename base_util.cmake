@@ -11,6 +11,7 @@ set(base_util__SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilInsertInclude.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilEndStmtOf.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilFuncIsX.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/UtilRewriteBuffer.cpp"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/ASTContextUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/../base_home/impl/base/StrUtil.cpp"
