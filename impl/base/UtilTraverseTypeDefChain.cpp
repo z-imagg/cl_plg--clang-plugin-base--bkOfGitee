@@ -22,8 +22,8 @@ clang::QualType UtilTraverseTypeDefChain::traverseTypedefChain(clang::QualType q
     //{打印调试信息
     const std::string typedef_fromName = typedefNameDecl_from->getNameAsString();
     const std::string typedef_toName = typedef_QualType_to.getAsString();
-    std::string msg=fmt::format("[typedef链条遍历步] typedef_fromName={}, typedef_toName={}\n", typedef_fromName, typedef_toName);
-    std::cout<<msg;
+//    std::string msg=fmt::format("[typedef链条遍历步] typedef_fromName={}, typedef_toName={}\n", typedef_fromName, typedef_toName);
+//    std::cout<<msg;
     //}
 
     // 递归,
