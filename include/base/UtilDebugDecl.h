@@ -20,7 +20,10 @@
 
 class UtilDebugDecl {
 public:
+  static int funcDecl_GlobalCounter;
+public:
   static bool ifNameEqPrintSrcTxt(  FunctionDecl *funcDecl,std::string targetFuncName, ASTContext &Ctx_ref, CompilerInstance &CI_ref);
+  static void debugFuncDeclByGlobalCounter(      FunctionDecl *funcDecl, ASTContext &Ctx_ref, CompilerInstance &CI_ref);
 
 };
 
