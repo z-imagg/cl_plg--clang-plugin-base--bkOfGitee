@@ -47,7 +47,9 @@ bool UtilCompoundStmt::GetCompoundLRBracLoc(CompoundStmt*& compoundStmt, SourceL
  * @return 若是组合语句(CompoundStmt) ，则取左花括号位置
  */
 void UtilCompoundStmt::funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt/*出量*/, SourceLocation& funcBodyLBraceLoc/*出量*/, SourceLocation& funcBodyRBraceLoc/*出量*/){
-    MyAssert(llvm::isa<CompoundStmt>(*funcBody), "[error_MyAssert] funcBody is not a CompoundStmt ");
+    std::string errMsg=fmt::format("[error_MyAssert] funcBody is not a CompoundStmt . funcBody==nullptr?{}.", funcBody==nullptr);
+    MyAssert(funcBody && llvm::isa<CompoundStmt>(*funcBody), errMsg);
+    compoundStmt=llvm::dyn_cast_or_null<CompoundStmt>(funcBody);
     funcBodyLBraceLoc = compoundStmt->getLBracLoc();
     funcBodyRBraceLoc = compoundStmt->getRBracLoc();
     return;
