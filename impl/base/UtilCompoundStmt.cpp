@@ -21,6 +21,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilCompoundStmt.h"
+#include "base/MyAssert.h"
 
 int UtilCompoundStmt::childrenCntOfCompoundStmt(CompoundStmt* stmt){
   if(!stmt){
@@ -45,13 +46,11 @@ bool UtilCompoundStmt::GetCompoundLRBracLoc(CompoundStmt*& compoundStmt, SourceL
  * @param funcBodyLBraceLoc
  * @return 若是组合语句(CompoundStmt) ，则取左花括号位置
  */
-bool UtilCompoundStmt::funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc){
-  if( compoundStmt = dyn_cast<CompoundStmt>(funcBody)){
+void UtilCompoundStmt::funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt/*出量*/, SourceLocation& funcBodyLBraceLoc/*出量*/, SourceLocation& funcBodyRBraceLoc/*出量*/){
+    MyAssert(llvm::isa<CompoundStmt>(*funcBody), "[error_MyAssert] funcBody is not a CompoundStmt ");
     funcBodyLBraceLoc = compoundStmt->getLBracLoc();
     funcBodyRBraceLoc = compoundStmt->getRBracLoc();
-    return true;
-  }
-  return false;
+    return;
 }
 
 bool UtilCompoundStmt::isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context) {
