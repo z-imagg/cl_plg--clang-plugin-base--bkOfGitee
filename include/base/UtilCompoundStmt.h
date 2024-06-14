@@ -32,7 +32,7 @@ public:
  * @param funcBodyLBraceLoc
  * @return 是否组合语句,即是否CompoundStmt
  */
-static void funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc);
+  static bool funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc);
 
   static bool isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context);
 
