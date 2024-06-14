@@ -23,19 +23,23 @@ public:
     LangOptions &langOptions;
     Preprocessor &PP;
     ASTContext &astCtx;
+    const std::shared_ptr<Rewriter> mRewriter_ptr;
 
 public:
   ClGO(CompilerInstance &_CI,
        SourceManager &_SM,
+       ASTContext &_astCtx,
        LangOptions &_langOptions,
        Preprocessor &_PP,
-       ASTContext &_astCtx)
+       const std::shared_ptr<Rewriter> _mRewriter_ptr
+       )
   :
   CI(_CI),
   SM(_SM),
+  astCtx(_astCtx),
   langOptions(_langOptions),
   PP(_PP),
-  astCtx(_astCtx)
+  mRewriter_ptr(_mRewriter_ptr)
   {
 
   }
