@@ -53,7 +53,7 @@ bool UtilCompoundStmt::funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, 
     compoundStmt=llvm::dyn_cast_or_null<CompoundStmt>(funcBody);
     funcBodyLBraceLoc = compoundStmt->getLBracLoc();
     funcBodyRBraceLoc = compoundStmt->getRBracLoc();
-    return (compoundStmt== nullptr);
+    return (compoundStmt!= nullptr);
 }
 
 bool UtilCompoundStmt::isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context) {
