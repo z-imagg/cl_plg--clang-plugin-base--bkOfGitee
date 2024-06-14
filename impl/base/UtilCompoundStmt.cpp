@@ -21,6 +21,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include "base/Util.h"
 #include "base/UtilCompoundStmt.h"
+#include "base/MyAssert.h"
 
 int UtilCompoundStmt::childrenCntOfCompoundStmt(CompoundStmt* stmt){
   if(!stmt){
@@ -39,19 +40,20 @@ bool UtilCompoundStmt::GetCompoundLRBracLoc(CompoundStmt*& compoundStmt, SourceL
   return false;
 }
 
-/**
+/** 若是组合语句(CompoundStmt) ，则取左花括号位置
  *
  * @param funcBody
  * @param funcBodyLBraceLoc
- * @return 若是组合语句(CompoundStmt) ，则取左花括号位置
+ * @return 是否转化成功
  */
-bool UtilCompoundStmt::funcBodyIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt, SourceLocation& funcBodyLBraceLoc, SourceLocation& funcBodyRBraceLoc){
-  if( compoundStmt = dyn_cast<CompoundStmt>(funcBody)){
+bool UtilCompoundStmt::funcBodyAssertIsCompoundThenGetLRBracLoc(Stmt *funcBody, CompoundStmt*& compoundStmt/*出量*/, SourceLocation& funcBodyLBraceLoc/*出量*/, SourceLocation& funcBodyRBraceLoc/*出量*/){
+    if(funcBody==nullptr){
+      return false;
+    }
+    compoundStmt=llvm::dyn_cast_or_null<CompoundStmt>(funcBody);
     funcBodyLBraceLoc = compoundStmt->getLBracLoc();
     funcBodyRBraceLoc = compoundStmt->getRBracLoc();
-    return true;
-  }
-  return false;
+    return (compoundStmt!= nullptr);
 }
 
 bool UtilCompoundStmt::isLastCompoundStmt(CompoundStmt *stmt, ASTContext &context) {
