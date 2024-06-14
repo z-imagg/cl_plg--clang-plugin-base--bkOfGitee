@@ -15,7 +15,7 @@ using namespace clang;
 
 
 
-int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory,const std::unique_ptr<clang::tooling::FrontendActionFactory> &frontendActionFactory,std::string actName,bool verbose ) {
+int act_main(int Argc, const char **Argv,llvm::cl::OptionCategory optionCategory,const std::unique_ptr<clang::tooling::FrontendActionFactory> &frontendActionFactory,std::string actName,bool verbose=true ) {
   Expected<tooling::CommonOptionsParser> eOptParser =
           tooling::CommonOptionsParser::create(Argc, Argv, optionCategory);
   if (auto E = eOptParser.takeError()) {
